@@ -18,6 +18,8 @@ class SelectCinemaActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        setSupportActionBar(binding.toolbar)
+
         binding.btnSelectCinema.setOnDebouncedClickListener {
             startActivity(Intent(this, DashboardActivity::class.java))
         }
