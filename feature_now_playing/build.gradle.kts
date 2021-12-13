@@ -42,6 +42,8 @@ android {
 dependencies {
     implementation(project(ModuleDependency.APP))
 
+    kapt(Libs.EPOXY_PROCESSOR)
+
     testImplementation(Libs.JUNIT)
     androidTestImplementation(Libs.EXT_JUNIT)
     androidTestImplementation(Libs.ESPRESSO_CORE)

@@ -1,6 +1,8 @@
 package net.fitken.movieapp.app.presentation.dashboard
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.navigation.Navigation
 import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,6 +44,22 @@ class DashboardActivity : BaseActivity() {
             val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
             val currentFragment = navHostFragment?.childFragmentManager?.fragments?.first()
             currentFragment?.navigateSafe(it)
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.toolbar_menu, menu)
+
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        R.id.action_settings -> {
+            showError("Open Settings")
+            true
+        }
+        else -> {
+            super.onOptionsItemSelected(item)
         }
     }
 }

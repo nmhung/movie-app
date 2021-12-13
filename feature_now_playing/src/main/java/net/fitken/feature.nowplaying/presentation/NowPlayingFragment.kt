@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import net.fitken.feature.nowplaying.R
 import net.fitken.feature.nowplaying.databinding.FragmentNowPlayingBinding
+import net.fitken.feature.nowplaying.domain.Movie
+import net.fitken.feature.nowplaying.itemMovie
 import net.fitken.movieapp.base.activity.BaseActivity
 import net.fitken.movieapp.base.delegate.viewBinding
 import net.fitken.movieapp.base.fragment.BaseFragment
@@ -16,5 +18,14 @@ class NowPlayingFragment: BaseFragment(R.layout.fragment_now_playing) {
         super.onViewCreated(view, savedInstanceState)
 
         (requireActivity() as BaseActivity).setSupportActionBar(binding.toolbar)
+
+        binding.rvItems.withModels {
+            (0..20).forEachIndexed { index, i ->
+                itemMovie {
+                    id("movie $index")
+                    movie(Movie())
+                }
+            }
+        }
     }
 }
