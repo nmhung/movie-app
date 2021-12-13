@@ -61,6 +61,8 @@ object Libs {
     const val NAVIGATION_KTX =
         "androidx.navigation:navigation-runtime-ktx:${LibsVersions.NAVIGATION}"
     const val NAVIGATION_UI_KTX = "androidx.navigation:navigation-ui-ktx:${LibsVersions.NAVIGATION}"
+    const val NAVIGATION_DYNAMIC_FEATURE_FRAGMENT =
+        "androidx.navigation:navigation-dynamic-features-fragment:${LibsVersions.NAVIGATION}"
     const val EPOXY = "com.airbnb.android:epoxy:${LibsVersions.EPOXY}"
     const val EPOXY_PROCESSOR = "com.airbnb.android:epoxy-processor:${LibsVersions.EPOXY}"
     const val EPOXY_DATABINDING = "com.airbnb.android:epoxy-databinding:${LibsVersions.EPOXY}"

@@ -21,6 +21,10 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".app.presentation.selectcinema.SelectCinemaActivity" />
+
+        <activity android:name=".app.presentation.dashboard.DashboardActivity" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true" />

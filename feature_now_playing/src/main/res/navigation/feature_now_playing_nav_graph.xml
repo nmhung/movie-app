@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:moduleName="feature_now_playing"
+    app:startDestination="@id/nowPlayingFragment">
+
+    <fragment
+        android:id="@+id/nowPlayingFragment"
+        android:name="net.fitken.feature.nowplaying.presentation.NowPlayingFragment"
+        android:label="NowPlayingFragment"
+        app:moduleName="feature_now_playing"/>
+</navigation>

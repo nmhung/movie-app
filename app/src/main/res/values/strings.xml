@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Movie App</string>
+    <string name="title_feature_now_playing">Now Playing</string>
+    <string name="title_feature_top_rated">Feature Top Rated</string>
+    <string name="now_playing">Now Playing</string>
+    <string name="top_rated">Top Rated</string>
 </resources>

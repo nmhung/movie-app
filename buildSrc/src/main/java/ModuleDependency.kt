@@ -6,10 +6,8 @@ import kotlin.reflect.full.memberProperties
 object ModuleDependency {
     // All consts are accessed via reflection
     const val APP = ":app"
-    const val FEATURE_ALBUM = ":feature_map"
-    const val FEATURE_PROFILE = ":feature_home"
-    const val FEATURE_FAVOURITE = ":feature_now_playing"
-    const val FEATURE_JOBS = ":feature_top_rated"
+    const val FEATURE_NOW_PLAYING = ":feature_now_playing"
+    const val FEATURE_TOP_RATED = ":feature_top_rated"
 
     // False positive" function can be private"
     // See: https://youtrack.jetbrains.com/issue/KT-33610
