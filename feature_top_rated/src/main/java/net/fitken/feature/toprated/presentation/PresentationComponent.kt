@@ -1,10 +1,10 @@
-package net.fitken.feature.nowplaying.presentation
+package net.fitken.feature.toprated.presentation
 
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
-import net.fitken.feature.nowplaying.data.DataModule
-import net.fitken.feature.nowplaying.domain.DomainModule
+import net.fitken.feature.toprated.data.DataModule
+import net.fitken.feature.toprated.domain.DomainModule
 import net.fitken.movieapp.app.di.AppModuleDependencies
 import javax.inject.Singleton
 
@@ -15,7 +15,7 @@ import javax.inject.Singleton
 @Singleton
 interface PresentationComponent {
 
-    fun inject(fragment: NowPlayingFragment)
+    fun inject(fragment: TopRatedFragment)
 
     @Component.Builder
     interface Builder {
