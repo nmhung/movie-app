@@ -15,6 +15,7 @@ import net.fitken.movieapp.base.activity.BaseActivity
 import net.fitken.movieapp.base.delegate.viewBinding
 import net.fitken.movieapp.base.extension.observe
 import net.fitken.movieapp.base.fragment.BaseFragment
+import net.fitken.movieapp.itemAdvertisement
 import javax.inject.Inject
 
 class NowPlayingFragment : BaseFragment(R.layout.fragment_now_playing) {
@@ -70,7 +71,18 @@ class NowPlayingFragment : BaseFragment(R.layout.fragment_now_playing) {
                 itemMovie {
                     id("movie $index")
                     movie(movie)
-                    voteCount(getString(net.fitken.movieapp.R.string.vote_count, movie.voteCount))
+                    voteCount(
+                        getString(
+                            net.fitken.movieapp.R.string.vote_count,
+                            movie.voteCount
+                        )
+                    )
+                }
+
+                if ((index + 1) % 3 == 0) {
+                    itemAdvertisement {
+                        id("ads $index")
+                    }
                 }
             }
         }

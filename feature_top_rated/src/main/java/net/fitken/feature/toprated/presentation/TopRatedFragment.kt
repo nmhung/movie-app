@@ -15,6 +15,7 @@ import net.fitken.movieapp.base.activity.BaseActivity
 import net.fitken.movieapp.base.delegate.viewBinding
 import net.fitken.movieapp.base.extension.observe
 import net.fitken.movieapp.base.fragment.BaseFragment
+import net.fitken.movieapp.itemAdvertisement
 import javax.inject.Inject
 
 class TopRatedFragment : BaseFragment(R.layout.fragment_top_rated) {
@@ -69,6 +70,13 @@ class TopRatedFragment : BaseFragment(R.layout.fragment_top_rated) {
                     id("movie $index")
                     movie(movie)
                     voteCount(getString(net.fitken.movieapp.R.string.vote_count, movie.voteCount))
+                }
+
+
+                if ((index + 1) % 3 == 0) {
+                    itemAdvertisement {
+                        id("ads $index")
+                    }
                 }
             }
         }
