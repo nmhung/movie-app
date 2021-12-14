@@ -51,11 +51,12 @@ kapt {
 
 dependencies {
     implementation(project(ModuleDependency.APP))
-
+    api(Libs.EPOXY_DATABINDING)
     kapt(Libs.EPOXY_PROCESSOR)
     api(Libs.HILT)
     kapt(Libs.HILT_ANDROID_COMPILER)
     kapt(Libs.HILT_COMPILER)
+    kapt(Libs.GLIDE_COMPILER)
 
 
     testImplementation(Libs.JUNIT)

@@ -25,9 +25,13 @@ class NowPlayingFragment : BaseFragment(R.layout.fragment_now_playing) {
     private var movies: List<Movie> = emptyList()
 
     private val stateObserver = Observer<NowPlayingViewModel.ViewState> {
-        movies = it.movies
+        if (it.movies.isNotEmpty()) {
+            movies = it.movies
+        }
 
         binding.isRefreshing = it.isLoading
+
+        binding.rvItems.requestModelBuild()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,6 +70,7 @@ class NowPlayingFragment : BaseFragment(R.layout.fragment_now_playing) {
                 itemMovie {
                     id("movie $index")
                     movie(movie)
+                    voteCount(getString(net.fitken.movieapp.R.string.vote_count, movie.voteCount))
                 }
             }
         }

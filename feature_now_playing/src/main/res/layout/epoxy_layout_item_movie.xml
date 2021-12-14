@@ -6,6 +6,10 @@
     <data>
 
         <variable
+            name="voteCount"
+            type="String" />
+
+        <variable
             name="movie"
             type="net.fitken.feature.nowplaying.domain.model.Movie" />
     </data>
@@ -25,11 +29,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.google.android.material.imageview.ShapeableImageView
+            <ImageView
                 android:id="@+id/iv_poster"
                 android:layout_width="100dp"
                 android:layout_height="120dp"
                 android:src="@drawable/ic_movie"
+                app:movieImgUrl="@{movie.posterPath}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -54,7 +59,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="4.5"
+                android:text="@{String.valueOf(movie.voteAverage)}"
+                tools:text="4.5"
                 android:textAppearance="?attr/textAppearanceSubtitle1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/iv_poster"
@@ -65,7 +71,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="Vote: 3232"
+                android:text="@{voteCount}"
+                tools:text="Vote: 3232"
                 android:textAppearance="?attr/textAppearanceSubtitle2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/iv_poster"
@@ -76,7 +83,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="12/12/2021"
+                android:text="@{movie.releaseDate}"
+                tools:text="12/12/2021"
                 android:textAppearance="?attr/textAppearanceBody2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/iv_poster"

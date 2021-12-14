@@ -28,6 +28,7 @@ internal class NowPlayingViewModel :
 
     private fun getNowPlaying() {
         viewModelScope.launch {
+            sendAction(Action.StartRefreshing)
             _getNowPlayingUseCase.execute(page).also { result ->
                 val action = when (result) {
                     is GetNowPlayingUseCase.Result.Success -> {
@@ -50,6 +51,7 @@ internal class NowPlayingViewModel :
     ) : BaseViewState
 
     internal sealed class Action : BaseAction {
+        object StartRefreshing : Action()
         class NowPlayingLoadingSuccess(val movies: List<Movie>) : Action()
         object NowPlayingLoadingFailure : Action()
     }
@@ -63,6 +65,11 @@ internal class NowPlayingViewModel :
         is Action.NowPlayingLoadingFailure -> state.copy(
             isLoading = false,
             isError = true,
+            movies = listOf()
+        )
+        Action.StartRefreshing -> state.copy(
+            isLoading = true,
+            isError = false,
             movies = listOf()
         )
     }
