@@ -20,6 +20,9 @@ android {
         versionName = AndroidConfig.VERSION_NAME
 
         testInstrumentationRunner = AndroidConfig.TEST_INSTRUMENTATION_RUNNER
+
+        buildConfigField("String", "API_BASE_URL", "\"https://api.themoviedb.org/3/\"")
+        buildConfigField("String", "API_TOKEN", "\"4479d7f3c064d397119eb3286deba0e1\"")
     }
 
     buildTypes {
@@ -50,6 +53,9 @@ android {
     setDynamicFeatures(ModuleDependency.getFeatureModules().toMutableSet())
 }
 
+hilt {
+    enableExperimentalClasspathAggregation = true
+}
 
 kapt {
     correctErrorTypes = true

@@ -1,4 +1,4 @@
-package net.fitken.feature.nowplaying.domain
+package net.fitken.feature.nowplaying.domain.model
 
 import java.io.Serializable
 

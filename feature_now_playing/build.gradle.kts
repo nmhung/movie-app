@@ -3,6 +3,7 @@ plugins {
     id(GradlePluginId.KOTLIN_ANDROID) // or kotlin("android") or id 'kotlin-android'
     id(GradlePluginId.KOTLIN_KAPT) // or kotlin("kapt")
     id(GradlePluginId.SAFE_ARGS)
+    id(GradlePluginId.HILT)
 }
 
 android {
@@ -39,10 +40,23 @@ android {
     }
 }
 
+
+hilt {
+    enableExperimentalClasspathAggregation = true
+}
+
+kapt {
+    correctErrorTypes = true
+}
+
 dependencies {
     implementation(project(ModuleDependency.APP))
 
     kapt(Libs.EPOXY_PROCESSOR)
+    api(Libs.HILT)
+    kapt(Libs.HILT_ANDROID_COMPILER)
+    kapt(Libs.HILT_COMPILER)
+
 
     testImplementation(Libs.JUNIT)
     androidTestImplementation(Libs.EXT_JUNIT)
