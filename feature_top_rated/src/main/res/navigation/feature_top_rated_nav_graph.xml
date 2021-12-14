@@ -9,5 +9,13 @@
         android:id="@+id/topRatedFragment"
         android:name="net.fitken.feature.toprated.presentation.TopRatedFragment"
         android:label="TopRatedFragment"
-        app:moduleName="feature_top_rated"/>
+        app:moduleName="feature_top_rated">
+        <action
+            android:id="@+id/action_topRatedFragment_to_movieDetailsActivity"
+            app:destination="@id/movieDetailsActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/movieDetailsActivity"
+        android:name="net.fitken.movieapp.app.presentation.moviedetails.MovieDetailsActivity"
+        android:label="MovieDetailsActivity" />
 </navigation>

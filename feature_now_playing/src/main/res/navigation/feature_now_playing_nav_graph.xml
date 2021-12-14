@@ -8,5 +8,14 @@
         android:id="@+id/nowPlayingFragment"
         android:name="net.fitken.feature.nowplaying.presentation.NowPlayingFragment"
         android:label="NowPlayingFragment"
-        app:moduleName="feature_now_playing"/>
+        app:moduleName="feature_now_playing">
+        <action
+            android:id="@+id/action_nowPlayingFragment_to_movieDetailsActivity"
+            app:destination="@id/movieDetailsActivity" />
+    </fragment>
+
+    <activity
+        android:id="@+id/movieDetailsActivity"
+        android:name="net.fitken.movieapp.app.presentation.moviedetails.MovieDetailsActivity"
+        android:label="MovieDetailsActivity" />
 </navigation>

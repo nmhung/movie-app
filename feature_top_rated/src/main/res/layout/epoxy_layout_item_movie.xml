@@ -12,6 +12,10 @@
         <variable
             name="movie"
             type="net.fitken.feature.toprated.domain.model.Movie" />
+
+        <variable
+            name="listener"
+            type="net.fitken.feature.toprated.presentation.MovieListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -19,6 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
+        android:onClick="@{() -> listener.onClicked()}"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="5dp"
         app:cardCornerRadius="6dp"

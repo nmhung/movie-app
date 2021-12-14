@@ -15,6 +15,7 @@ import net.fitken.movieapp.base.activity.BaseActivity
 import net.fitken.movieapp.base.delegate.viewBinding
 import net.fitken.movieapp.base.extension.observe
 import net.fitken.movieapp.base.fragment.BaseFragment
+import net.fitken.movieapp.base.navigation.NavManager
 import net.fitken.movieapp.itemAdvertisement
 import javax.inject.Inject
 
@@ -22,6 +23,9 @@ class NowPlayingFragment : BaseFragment(R.layout.fragment_now_playing) {
 
     private val binding: FragmentNowPlayingBinding by viewBinding()
     private val viewModel: NowPlayingViewModel by viewModels()
+
+    @Inject
+    lateinit var navManager: NavManager
 
     private var movies: List<Movie> = emptyList()
 
@@ -77,6 +81,14 @@ class NowPlayingFragment : BaseFragment(R.layout.fragment_now_playing) {
                             movie.voteCount
                         )
                     )
+                    listener(object : MovieListener {
+                        override fun onClicked() {
+                            val action =
+                                NowPlayingFragmentDirections.actionNowPlayingFragmentToMovieDetailsActivity()
+                            navManager.navigate(action)
+                        }
+
+                    })
                 }
 
                 if ((index + 1) % 3 == 0) {
