@@ -1,8 +1,13 @@
 package net.fitken.movieapp.app.utils
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
+import net.fitken.domain.model.Genre
 import net.fitken.movieapp.R
 
 @BindingAdapter("movieImgUrl")
@@ -12,4 +17,17 @@ fun ImageView.loadImgUrl(movieImgUrl: String?) {
         .centerCrop()
         .placeholder(R.drawable.ic_movie)
         .into(this)
+}
+
+@BindingAdapter("genres")
+fun ChipGroup.setItem(genres: List<Genre>?) {
+    if (genres == null || childCount > 0) return
+    genres.forEach {
+        val chip = Chip(context)
+        chip.text = it.name
+        chip.chipStrokeWidth = 2F
+        chip.chipStrokeColor = ColorStateList.valueOf(Color.GRAY)
+        chip.setChipBackgroundColorResource(android.R.color.white)
+        addView(chip)
+    }
 }

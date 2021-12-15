@@ -2,6 +2,7 @@ package net.fitken.data.network.model
 
 import com.squareup.moshi.Json
 import net.fitken.data.common.Constants
+import net.fitken.domain.model.Genre
 import net.fitken.domain.model.Movie
 
 data class MovieJson(
@@ -36,6 +37,13 @@ data class MovieJson(
 
     @Json(name = "vote_average")
     var voteAverage: Float = 0f,
+
+    var genres: List<GenreJson>? = ArrayList(),
+)
+
+data class GenreJson(
+    var id: Int,
+    var name: String
 )
 
 fun MovieJson.toDomainModel(): Movie = Movie(
@@ -51,4 +59,10 @@ fun MovieJson.toDomainModel(): Movie = Movie(
     this.voteCount,
     this.hasVideo,
     this.voteAverage,
+    this.genres?.map { it.toDomainModel() }
+)
+
+fun GenreJson.toDomainModel(): Genre = Genre(
+    this.id,
+    this.name
 )

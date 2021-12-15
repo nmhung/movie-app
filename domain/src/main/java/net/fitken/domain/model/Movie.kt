@@ -15,4 +15,10 @@ data class Movie(
     var voteCount: Int = 0,
     var hasVideo: Boolean = false,
     var voteAverage: Float = 0f,
+    var genres: List<Genre>? = null,
+) : Serializable
+
+data class Genre(
+    var id: Int,
+    var name: String
 ) : Serializable

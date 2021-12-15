@@ -15,4 +15,7 @@ class MovieRepositoryImpl(private val movieService: MovieService) : MovieReposit
 
     override suspend fun getTopRated(page: Int): List<Movie> =
         movieService.getTopRated(page).results.map { it.toDomainModel() }
+
+    override suspend fun getMovieDetails(id: Int): Movie =
+        movieService.getMovieDetails(id).toDomainModel()
 }
