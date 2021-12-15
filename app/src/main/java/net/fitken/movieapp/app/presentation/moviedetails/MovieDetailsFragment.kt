@@ -47,6 +47,7 @@ class MovieDetailsFragment : BaseFragment(R.layout.fragment_movie_details) {
         (requireActivity() as BaseActivity).supportActionBar?.setDisplayShowHomeEnabled(true)
 
         binding.movie = args.movie
+        movie = args.movie
         binding.viewModel = viewModel
         observe(viewModel.stateLiveData, stateObserver)
 

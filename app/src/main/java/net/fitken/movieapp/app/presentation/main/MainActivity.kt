@@ -70,7 +70,7 @@ class MainActivity : BaseActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
         val currentFragment = navHostFragment?.childFragmentManager?.fragments?.first()
         if (currentFragment is DashboardFragment) {
-            currentFragment.findNavController().navigate(R.id.selectCinemaFragment)
+            currentFragment.findNavController().popBackStack(R.id.selectCinemaFragment, false)
         } else {
             super.onBackPressed()
         }
