@@ -3,20 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".app.presentation.dashboard.DashboardActivity">
+    android:layout_height="match_parent">
 
 
-    <fragment
-        android:id="@+id/nav_host_fragment"
-        android:name="androidx.navigation.dynamicfeatures.fragment.DynamicNavHostFragment"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_fragment_dashboard"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="56dp"
         app:defaultNavHost="true"
         app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/app_nav_graph"
-        tools:ignore="FragmentTagUsage" />
+        app:navGraph="@navigation/dashboard_nav_graph" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"

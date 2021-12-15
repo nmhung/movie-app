@@ -8,6 +8,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import net.fitken.domain.model.Movie
 import net.fitken.movieapp.R
 import net.fitken.movieapp.app.listener.MovieListener
+import net.fitken.movieapp.app.presentation.dashboard.DashboardFragmentDirections
 import net.fitken.movieapp.base.activity.BaseActivity
 import net.fitken.movieapp.base.delegate.viewBinding
 import net.fitken.movieapp.base.extension.observe
@@ -56,6 +57,10 @@ class TopRatedFragment : BaseFragment(R.layout.fragment_top_rated) {
                     movie(movie)
                     listener(object : MovieListener {
                         override fun onClicked() {
+                            val action =
+                                DashboardFragmentDirections
+                                    .actionDashboardFragmentToMovieDetailsFragment(movie)
+                            navManager.navigate(action)
                         }
 
                     })

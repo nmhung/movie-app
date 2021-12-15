@@ -1,14 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_graph"
-    app:startDestination="@id/nowPlayingFragment">
+    app:startDestination="@id/selectCinemaFragment">
+
     <fragment
-        android:id="@+id/nowPlayingFragment"
-        android:name="net.fitken.movieapp.app.presentation.nowplaying.NowPlayingFragment"
-        android:label="NowPlayingFragment" />
+        android:id="@+id/selectCinemaFragment"
+        android:name="net.fitken.movieapp.app.presentation.selectcinema.SelectCinemaFragment"
+        android:label="SelectCinemaFragment">
+        <action
+            android:id="@+id/action_selectCinemaFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+    </fragment>
+
     <fragment
-        android:id="@+id/topRatedFragment"
-        android:name="net.fitken.movieapp.app.presentation.toprated.TopRatedFragment"
-        android:label="TopRatedFragment" />
+        android:id="@+id/dashboardFragment"
+        android:name="net.fitken.movieapp.app.presentation.dashboard.DashboardFragment"
+        android:label="DashboardFragment">
+        <action
+            android:id="@+id/action_dashboardFragment_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+    </fragment>
+
+    <include app:graph="@navigation/dashboard_nav_graph" />
+
+    <fragment
+        android:id="@+id/movieDetailsFragment"
+        android:name="net.fitken.movieapp.app.presentation.moviedetails.MovieDetailsFragment"
+        android:label="MovieDetailsFragment" >
+        <argument
+            android:name="movie"
+            app:argType="net.fitken.domain.model.Movie"/>
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="net.fitken.movieapp.app.presentation.settings.SettingsFragment"
+        android:label="SettingsFragment" />
 </navigation>

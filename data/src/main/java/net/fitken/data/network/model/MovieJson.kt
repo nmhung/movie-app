@@ -46,7 +46,7 @@ fun MovieJson.toDomainModel(): Movie = Movie(
     this.originalTitle,
     this.originalLanguage,
     this.title,
-    this.backdropPath,
+    Constants.URL_IMAGE + this.backdropPath,
     this.popularity,
     this.voteCount,
     this.hasVideo,

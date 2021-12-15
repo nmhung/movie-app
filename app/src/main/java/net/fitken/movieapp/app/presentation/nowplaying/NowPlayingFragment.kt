@@ -7,6 +7,8 @@ import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
 import net.fitken.domain.model.Movie
 import net.fitken.movieapp.R
+import net.fitken.movieapp.app.listener.MovieListener
+import net.fitken.movieapp.app.presentation.dashboard.DashboardFragmentDirections
 import net.fitken.movieapp.base.activity.BaseActivity
 import net.fitken.movieapp.base.delegate.viewBinding
 import net.fitken.movieapp.base.extension.observe
@@ -54,6 +56,15 @@ class NowPlayingFragment : BaseFragment(R.layout.fragment_now_playing) {
                 itemMovie {
                     id("movie $index")
                     movie(movie)
+                    listener(object : MovieListener {
+                        override fun onClicked() {
+                            val action =
+                                DashboardFragmentDirections
+                                    .actionDashboardFragmentToMovieDetailsFragment(movie)
+                            navManager.navigate(action)
+                        }
+
+                    })
                 }
 
                 if ((index + 1) % 3 == 0) {

@@ -14,8 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?attr/colorOnPrimary"
-        android:fitsSystemWindows="true"
-        tools:context=".app.presentation.moviedetails.MovieDetailsActivity">
+        android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar"
@@ -58,8 +57,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     app:layout_collapseMode="pin"
-                    app:title="Day la mot tieu de rat dai luon"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    app:title="@{movie.title}" />
 
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>

@@ -24,9 +24,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".app.presentation.selectcinema.SelectCinemaActivity" />
+        <activity android:name=".app.presentation.main.MainActivity" />
 
-        <activity android:name=".app.presentation.dashboard.DashboardActivity" />
+        <activity android:name=".app.presentation.selectcinema.SelectCinemaActivity" />
 
         <activity android:name=".app.presentation.moviedetails.MovieDetailsActivity" />
 
