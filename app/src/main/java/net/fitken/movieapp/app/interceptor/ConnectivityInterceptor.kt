@@ -1,8 +1,8 @@
-package net.fitken.movieapp.base.interceptors
+package net.fitken.movieapp.app.data.network
 
 import android.content.Context
-import net.fitken.movieapp.base.exception.NoInternetException
-import net.fitken.movieapp.base.utils.NetworkUtil
+import net.fitken.movieapp.app.data.network.exception.NoInternetException
+import net.fitken.movieapp.app.utils.NetworkUtil
 import okhttp3.Interceptor
 import okhttp3.Response
 
@@ -12,7 +12,7 @@ import okhttp3.Response
 
 class ConnectivityInterceptor(private val mContext: Context) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
-        if (!NetworkUtil.isConnected(mContext)) {
+        if (!NetworkUtil.isInternetAvailable(mContext)) {
             throw NoInternetException("No internet connection. Please check your connection and try again.")
         }
 

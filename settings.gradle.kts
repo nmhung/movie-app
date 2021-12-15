@@ -6,5 +6,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "Movie App"
-include(":app", ":feature_now_playing")
-include(":feature_top_rated")
+include(":app", ":data", ":domain")

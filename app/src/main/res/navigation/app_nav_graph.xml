@@ -2,15 +2,13 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/featureNowPlayingNavGraph">
-
-    <include-dynamic
-        android:id="@+id/featureNowPlayingNavGraph"
-        app:graphResName="feature_now_playing_nav_graph"
-        app:moduleName="feature_now_playing" />
-
-    <include-dynamic
-        android:id="@+id/featureTopRatedNavGraph"
-        app:graphResName="feature_top_rated_nav_graph"
-        app:moduleName="feature_top_rated" />
+    app:startDestination="@id/nowPlayingFragment">
+    <fragment
+        android:id="@+id/nowPlayingFragment"
+        android:name="net.fitken.movieapp.app.presentation.nowplaying.NowPlayingFragment"
+        android:label="NowPlayingFragment" />
+    <fragment
+        android:id="@+id/topRatedFragment"
+        android:name="net.fitken.movieapp.app.presentation.toprated.TopRatedFragment"
+        android:label="TopRatedFragment" />
 </navigation>

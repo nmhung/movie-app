@@ -1,0 +1,67 @@
+package net.fitken.movieapp.app.presentation.nowplaying
+
+import android.os.Bundle
+import android.view.View
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import dagger.hilt.android.AndroidEntryPoint
+import net.fitken.domain.model.Movie
+import net.fitken.movieapp.R
+import net.fitken.movieapp.base.activity.BaseActivity
+import net.fitken.movieapp.base.delegate.viewBinding
+import net.fitken.movieapp.base.extension.observe
+import net.fitken.movieapp.base.fragment.BaseFragment
+import net.fitken.movieapp.base.navigation.NavManager
+import net.fitken.movieapp.databinding.FragmentNowPlayingBinding
+import net.fitken.movieapp.itemAdvertisement
+import net.fitken.movieapp.itemMovie
+import javax.inject.Inject
+
+@AndroidEntryPoint
+class NowPlayingFragment : BaseFragment(R.layout.fragment_now_playing) {
+
+    private val binding: FragmentNowPlayingBinding by viewBinding()
+    private val viewModel: NowPlayingViewModel by viewModels()
+
+    @Inject
+    lateinit var navManager: NavManager
+
+    private var movies: List<Movie> = emptyList()
+
+    private val stateObserver = Observer<NowPlayingViewModel.ViewState> {
+        if (it.movies.isNotEmpty()) {
+            movies = it.movies
+        }
+
+        binding.isRefreshing = it.isLoading
+
+        binding.rvItems.requestModelBuild()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        (requireActivity() as BaseActivity).setSupportActionBar(binding.toolbar)
+
+        binding.viewModel = viewModel
+        observe(viewModel.stateLiveData, stateObserver)
+
+        viewModel.loadData()
+
+
+        binding.rvItems.withModels {
+            movies.forEachIndexed { index, movie ->
+                itemMovie {
+                    id("movie $index")
+                    movie(movie)
+                }
+
+                if ((index + 1) % 3 == 0) {
+                    itemAdvertisement {
+                        id("ads $index")
+                    }
+                }
+            }
+        }
+    }
+}

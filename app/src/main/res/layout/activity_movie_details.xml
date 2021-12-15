@@ -7,7 +7,7 @@
 
         <variable
             name="movie"
-            type="net.fitken.movieapp.app.domain.model.Movie" />
+            type="net.fitken.domain.model.Movie" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

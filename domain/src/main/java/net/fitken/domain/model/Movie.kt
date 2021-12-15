@@ -1,4 +1,4 @@
-package net.fitken.movieapp.app.domain.model
+package net.fitken.domain.model
 
 import java.io.Serializable
 

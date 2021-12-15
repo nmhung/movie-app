@@ -48,9 +48,6 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
-
-    // Each feature module that is included in settings.gradle.kts is added here as dynamic feature
-    setDynamicFeatures(ModuleDependency.getFeatureModules().toMutableSet())
 }
 
 hilt {
@@ -62,6 +59,9 @@ kapt {
 }
 
 dependencies {
+    implementation(project(ModuleDependency.DATA))
+    implementation(project(ModuleDependency.DOMAIN))
+
     api(Libs.CORE_KTX)
     api(Libs.APPCOMPAT)
     api(Libs.MATERIAL)
@@ -127,13 +127,6 @@ fun BaseFlavor.buildConfigFieldFromGradleProperty(gradlePropertyName: String) {
     val androidResourceName = "GRADLE_${gradlePropertyName.toSnakeCase()}".toUpperCase()
     buildConfigField("String", androidResourceName, propertyValue)
 }
-
-/*
-Return names of the features
- */
-fun getFeatureNames() = ModuleDependency.getFeatureModules()
-    .map { it.replace(":feature_", "") }
-    .toSet()
 
 fun String.toSnakeCase() = this.split(Regex("(?=[A-Z])")).joinToString("_") { it.toLowerCase() }
 

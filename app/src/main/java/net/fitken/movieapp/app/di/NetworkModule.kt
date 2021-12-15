@@ -8,9 +8,12 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import net.fitken.data.network.service.MovieService
+import net.fitken.data.repository.MovieRepositoryImpl
+import net.fitken.domain.repository.MovieRepository
 import net.fitken.movieapp.BuildConfig
 import net.fitken.movieapp.app.data.network.BasicAuthInterceptor
-import net.fitken.movieapp.base.interceptors.ConnectivityInterceptor
+import net.fitken.movieapp.app.data.network.ConnectivityInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Logger.Companion.DEFAULT
@@ -60,5 +63,11 @@ object NetworkModule {
         return createNetworkClient(context)
     }
 
+    @Provides
+    fun provideMovieService(retrofit: Retrofit): MovieService =
+        retrofit.create(MovieService::class.java)
 
+    @Provides
+    fun provideMovieRepository(movieService: MovieService): MovieRepository =
+        MovieRepositoryImpl(movieService)
 }
