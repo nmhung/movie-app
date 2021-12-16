@@ -3,10 +3,13 @@ package net.fitken.movieapp.app.presentation.selectcinema
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
+import android.location.Geocoder
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -17,18 +20,26 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.ktx.addMarker
 import com.google.maps.android.ktx.awaitMap
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.*
 import net.fitken.movieapp.R
+import net.fitken.movieapp.app.utils.textChanges
 import net.fitken.movieapp.base.activity.BaseActivity
 import net.fitken.movieapp.base.delegate.viewBinding
+import net.fitken.movieapp.base.extension.observe
 import net.fitken.movieapp.base.fragment.BaseFragment
 import net.fitken.movieapp.base.navigation.NavManager
 import net.fitken.movieapp.databinding.FragmentSelectCinemaBinding
 import javax.inject.Inject
 
+@ExperimentalCoroutinesApi
+@FlowPreview
 @AndroidEntryPoint
 class SelectCinemaFragment : BaseFragment(R.layout.fragment_select_cinema) {
 
     private val binding: FragmentSelectCinemaBinding by viewBinding()
+    private val viewModel: SelectCinemaViewModel by viewModels()
     private lateinit var map: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
@@ -46,11 +57,29 @@ class SelectCinemaFragment : BaseFragment(R.layout.fragment_select_cinema) {
             }
         }
 
+    private val stateObserver = Observer<SelectCinemaViewModel.ViewState> {
+        binding.isLoading = it.isLoading
+        if (it.address != null) {
+            map.clear()
+            val cinema = LatLng(it.address.latitude, it.address.longitude)
+            map.addMarker {
+                position(cinema)
+                title(it.address.getAddressLine(0))
+            }
+            map.moveCamera(CameraUpdateFactory.newLatLng(cinema))
+        }
+    }
+
+
     @SuppressLint("PotentialBehaviorOverride")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         (requireActivity() as BaseActivity).setSupportActionBar(binding.toolbar)
+
+        observe(viewModel.stateLiveData, stateObserver)
+
+        viewModel.init(Geocoder(requireContext()))
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
@@ -61,19 +90,22 @@ class SelectCinemaFragment : BaseFragment(R.layout.fragment_select_cinema) {
 
             checkPermissions()
 
-
-            val saigon = LatLng(10.772365414541174, 106.70429737409198)
-            val marker = map.addMarker {
-                position(saigon)
-                title("Marker in Saigon")
-            }
-
             map.setOnInfoWindowClickListener {
                 val action =
                     SelectCinemaFragmentDirections.actionSelectCinemaFragmentToDashboardFragment()
                 navManager.navigate(action)
             }
         }
+
+        binding.etSearch.textChanges()
+            .filterNot { it.isNullOrBlank() }
+            .drop(1)
+            .debounce(600L)
+            .map { it.toString() }
+            .onEach {
+                viewModel.loadAddress(it)
+            }
+            .launchIn(lifecycleScope)
     }
 
     private fun checkPermissions() {
