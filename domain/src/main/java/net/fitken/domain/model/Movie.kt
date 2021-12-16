@@ -16,6 +16,7 @@ data class Movie(
     var hasVideo: Boolean = false,
     var voteAverage: Float = 0f,
     var genres: List<Genre>? = null,
+    var runtime: Int? = null
 ) : Serializable
 
 data class Genre(

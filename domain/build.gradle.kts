@@ -33,6 +33,14 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
+
+    flavorDimensions("server")
+    productFlavors {
+        create("dev") {
+        }
+        create("prod") {
+        }
+    }
 }
 
 hilt {

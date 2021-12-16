@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_bold"
             android:padding="10dp"
-            android:text="@{movie.originalTitle}"
+            android:text="@{movie.title}"
             android:textAppearance="?attr/textAppearanceHeadline6"
             android:textColor="@android:color/black"
             app:layout_constraintEnd_toEndOf="parent"

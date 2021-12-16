@@ -39,6 +39,8 @@ data class MovieJson(
     var voteAverage: Float = 0f,
 
     var genres: List<GenreJson>? = ArrayList(),
+
+    var runtime: Int? = null
 )
 
 data class GenreJson(
@@ -59,7 +61,8 @@ fun MovieJson.toDomainModel(): Movie = Movie(
     this.voteCount,
     this.hasVideo,
     this.voteAverage,
-    this.genres?.map { it.toDomainModel() }
+    this.genres?.map { it.toDomainModel() },
+    this.runtime
 )
 
 fun GenreJson.toDomainModel(): Genre = Genre(

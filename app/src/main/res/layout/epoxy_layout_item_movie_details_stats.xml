@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="movie"
+            type="net.fitken.domain.model.Movie" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/tv_vote_average"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:drawablePadding="5dp"
+            android:gravity="center"
+            android:text="@{String.valueOf(movie.voteAverage)}"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
+            android:textColor="@android:color/black"
+            app:drawableStartCompat="@drawable/ic_top_rated"
+            app:layout_constraintEnd_toStartOf="@+id/tv_duration"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="8.6" />
+
+        <TextView
+            android:id="@+id/tv_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:drawablePadding="5dp"
+            android:gravity="center"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
+            android:textColor="@android:color/black"
+            app:drawableStartCompat="@drawable/ic_timer"
+            app:layout_constraintEnd_toStartOf="@+id/tv_release_date"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toEndOf="@+id/tv_vote_average"
+            app:layout_constraintTop_toTopOf="parent"
+            app:movieRunTime="@{movie.runtime}"
+            tools:text="1h 30m" />
+
+        <TextView
+            android:id="@+id/tv_release_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:drawablePadding="5dp"
+            android:gravity="center"
+            android:text="@{movie.releaseDate}"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
+            android:textColor="@android:color/black"
+            app:drawableStartCompat="@drawable/ic_calendar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toEndOf="@+id/tv_duration"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="12/12/2021" />
+
+        <TextView
+            android:id="@+id/tv_overview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="@string/overview"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:textColor="@android:color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_vote_average"
+            app:layout_goneMarginTop="10dp" />
+
+        <TextView
+            android:id="@+id/tv_overview_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:text="@{movie.des}"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
+            android:textColor="@android:color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_overview"
+            tools:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
