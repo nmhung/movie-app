@@ -22,12 +22,14 @@
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:title="Select Cinema" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_select_cinema"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="select cinema"
-            android:textAppearance="?attr/textAppearanceBody1"
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:cameraTilt="30"
+            app:uiRotateGestures="true"
+            app:uiZoomControls="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

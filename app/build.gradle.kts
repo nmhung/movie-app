@@ -7,6 +7,7 @@ plugins {
     id(GradlePluginId.KOTLIN_KAPT) // or kotlin("kapt")
     id(GradlePluginId.SAFE_ARGS)
     id(GradlePluginId.HILT)
+    id(GradlePluginId.MAPS)
 }
 
 android {
@@ -20,9 +21,6 @@ android {
         versionName = AndroidConfig.VERSION_NAME
 
         testInstrumentationRunner = AndroidConfig.TEST_INSTRUMENTATION_RUNNER
-
-        buildConfigField("String", "API_BASE_URL", "\"https://api.themoviedb.org/3/\"")
-        buildConfigField("String", "API_TOKEN", "\"4479d7f3c064d397119eb3286deba0e1\"")
     }
 
     buildTypes {
@@ -123,6 +121,12 @@ dependencies {
     // Glide
     api(Libs.GLIDE)
     kapt(Libs.GLIDE_COMPILER)
+
+    // Maps
+    implementation(Libs.MAPS)
+    implementation(Libs.MAPS_KTX)
+    implementation(Libs.MAPS_UTILS_KTX)
+    implementation(Libs.MAPS_LOCATION)
 
 
     testImplementation(Libs.JUNIT)

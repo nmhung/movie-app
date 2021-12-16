@@ -17,6 +17,9 @@ object LibsVersions {
     const val NAVIGATION = "2.3.5"
     const val EPOXY = "4.6.3-vinay-compose"
     const val GLIDE = "4.12.0"
+    const val MAPS = "18.0.1"
+    const val MAPS_KTX = "3.2.1"
+    const val MAPS_LOCATION = "19.0.0"
 
     // Test
     const val JUNIT = "4.+"
@@ -68,6 +71,11 @@ object Libs {
     const val EPOXY_DATABINDING = "com.airbnb.android:epoxy-databinding:${LibsVersions.EPOXY}"
     const val GLIDE = "com.github.bumptech.glide:glide:${LibsVersions.GLIDE}"
     const val GLIDE_COMPILER = "com.github.bumptech.glide:compiler:${LibsVersions.GLIDE}"
+    const val MAPS = "com.google.android.gms:play-services-maps:${LibsVersions.MAPS}"
+    const val MAPS_KTX = "com.google.maps.android:maps-ktx:${LibsVersions.MAPS_KTX}"
+    const val MAPS_UTILS_KTX = "com.google.maps.android:maps-utils-ktx:${LibsVersions.MAPS_KTX}"
+    const val MAPS_LOCATION =
+        "com.google.android.gms:play-services-location:${LibsVersions.MAPS_LOCATION}"
 
 
     // Test

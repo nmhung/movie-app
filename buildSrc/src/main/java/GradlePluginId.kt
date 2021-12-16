@@ -11,4 +11,5 @@ object GradlePluginId {
     const val KTLINT_GRADLE = "org.jlleitschuh.gradle.ktlint"
     const val GOOGLE_SERVICES = "com.google.gms.google-services"
     const val HILT = "dagger.hilt.android.plugin"
+    const val MAPS = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin"
 }
