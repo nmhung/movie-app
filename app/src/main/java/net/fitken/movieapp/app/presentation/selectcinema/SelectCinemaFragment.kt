@@ -3,6 +3,7 @@ package net.fitken.movieapp.app.presentation.selectcinema
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.location.Geocoder
 import android.os.Bundle
 import android.view.View
@@ -18,6 +19,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.ktx.addMarker
+import com.google.maps.android.ktx.addPolyline
 import com.google.maps.android.ktx.awaitMap
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -42,6 +44,7 @@ class SelectCinemaFragment : BaseFragment(R.layout.fragment_select_cinema) {
     private val viewModel: SelectCinemaViewModel by viewModels()
     private lateinit var map: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private var currentLocation: LatLng? = null
 
 
     @Inject
@@ -67,6 +70,15 @@ class SelectCinemaFragment : BaseFragment(R.layout.fragment_select_cinema) {
                 title(it.address.getAddressLine(0))
             }
             map.moveCamera(CameraUpdateFactory.newLatLng(cinema))
+        }
+        if (it.stepDirection != null) {
+            map.addPolyline {
+                it.stepDirection.forEach { step ->
+                    val startLatLng = LatLng(step.startLocation.lat, step.startLocation.lng)
+                    val endLatLng = LatLng(step.endLocation.lat, step.endLocation.lng)
+                    add(startLatLng, endLatLng).width(15F).color(Color.BLUE)
+                }
+            }
         }
     }
 
@@ -100,10 +112,10 @@ class SelectCinemaFragment : BaseFragment(R.layout.fragment_select_cinema) {
         binding.etSearch.textChanges()
             .filterNot { it.isNullOrBlank() }
             .drop(1)
-            .debounce(600L)
+            .debounce(1000L)
             .map { it.toString() }
             .onEach {
-                viewModel.loadAddress(it)
+                viewModel.loadAddress(it, currentLocation)
             }
             .launchIn(lifecycleScope)
     }
@@ -133,10 +145,9 @@ class SelectCinemaFragment : BaseFragment(R.layout.fragment_select_cinema) {
     private fun moveToCurrentLocation() {
         map.isMyLocationEnabled = true
         fusedLocationClient.lastLocation.addOnSuccessListener {
+            currentLocation = LatLng(it.latitude, it.longitude)
             map.moveCamera(
-                CameraUpdateFactory.newLatLng(
-                    LatLng(it.latitude, it.longitude)
-                )
+                CameraUpdateFactory.newLatLng(currentLocation!!)
             )
         }
     }

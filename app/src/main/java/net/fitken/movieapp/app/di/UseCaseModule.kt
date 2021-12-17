@@ -4,7 +4,9 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import net.fitken.domain.repository.MapRepository
 import net.fitken.domain.repository.MovieRepository
+import net.fitken.domain.usecase.GetDirectionUseCase
 import net.fitken.domain.usecase.GetMovieDetailsUseCase
 import net.fitken.domain.usecase.GetNowPlayingUseCase
 import net.fitken.domain.usecase.GetTopRatedUseCase
@@ -27,4 +29,9 @@ object UseCaseModule {
     @Provides
     fun provideGetMovieDetailsUseCase(movieRepository: MovieRepository): GetMovieDetailsUseCase =
         GetMovieDetailsUseCase(movieRepository)
+
+    @Singleton
+    @Provides
+    fun provideGetMapDirectionUseCase(mapRepository: MapRepository): GetDirectionUseCase =
+        GetDirectionUseCase(mapRepository)
 }

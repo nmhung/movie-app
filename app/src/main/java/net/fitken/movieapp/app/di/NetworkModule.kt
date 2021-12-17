@@ -8,8 +8,11 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import net.fitken.data.network.service.MapService
 import net.fitken.data.network.service.MovieService
+import net.fitken.data.repository.MapRepositoryImpl
 import net.fitken.data.repository.MovieRepositoryImpl
+import net.fitken.domain.repository.MapRepository
 import net.fitken.domain.repository.MovieRepository
 import net.fitken.movieapp.BuildConfig
 import net.fitken.movieapp.app.data.network.BasicAuthInterceptor
@@ -70,4 +73,12 @@ object NetworkModule {
     @Provides
     fun provideMovieRepository(movieService: MovieService): MovieRepository =
         MovieRepositoryImpl(movieService)
+
+    @Provides
+    fun provideMapService(retrofit: Retrofit): MapService =
+        retrofit.create(MapService::class.java)
+
+    @Provides
+    fun provideMapRepository(mapService: MapService): MapRepository =
+        MapRepositoryImpl(mapService)
 }
