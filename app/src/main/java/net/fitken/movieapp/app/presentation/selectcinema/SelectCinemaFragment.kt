@@ -56,12 +56,13 @@ class SelectCinemaFragment : BaseFragment(R.layout.fragment_select_cinema) {
             if (grantedList.size == permissions.size) {
                 moveToCurrentLocation()
             } else {
-                showError("Location permission denied")
+                showError(getString(R.string.location_permission_denied))
             }
         }
 
     private val stateObserver = Observer<SelectCinemaViewModel.ViewState> {
         binding.isLoading = it.isLoading
+        if (it.error != null) showError(it.error)
         if (it.address != null) {
             map.clear()
             val cinema = LatLng(it.address.latitude, it.address.longitude)

@@ -35,6 +35,8 @@ class TopRatedFragment : BaseFragment(R.layout.fragment_top_rated) {
             movies = it.movies
         }
 
+        if (it.error != null) showError(it.error)
+
         binding.isRefreshing = it.isLoading
 
         binding.rvItems.requestModelBuild()

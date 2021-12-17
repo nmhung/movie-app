@@ -34,6 +34,7 @@ class NowPlayingFragment : BaseFragment(R.layout.fragment_now_playing) {
         if (it.movies.isNotEmpty()) {
             movies = it.movies
         }
+        if (it.error != null) showError(it.error)
 
         binding.isRefreshing = it.isLoading
 

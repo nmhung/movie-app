@@ -32,6 +32,8 @@ class MovieDetailsFragment : BaseFragment(R.layout.fragment_movie_details) {
             movie = it.movie
         }
 
+        if (it.error != null) showError(it.error)
+
         binding.isRefreshing = it.isLoading
 
         binding.rvItems.requestModelBuild()

@@ -36,7 +36,7 @@ internal class TopRatedViewModel @Inject constructor(
                     }
 
                     is GetTopRatedUseCase.Result.Error -> {
-                        Action.TopRatedLoadingFailure
+                        Action.TopRatedLoadingFailure(result.e)
                     }
                 }
                 sendAction(action)
@@ -47,30 +47,34 @@ internal class TopRatedViewModel @Inject constructor(
     internal data class ViewState(
         val isLoading: Boolean = true,
         val isError: Boolean = false,
-        val movies: List<Movie> = listOf()
+        val movies: List<Movie> = listOf(),
+        val error: Throwable? = null
     ) : BaseViewState
 
     internal sealed class Action : BaseAction {
         object StartRefreshing : Action()
         class TopRatedLoadingSuccess(val movies: List<Movie>) : Action()
-        object TopRatedLoadingFailure : Action()
+        class TopRatedLoadingFailure(val error: Throwable?) : Action()
     }
 
     override fun onReduceState(viewAction: Action): ViewState = when (viewAction) {
         is Action.TopRatedLoadingSuccess -> state.copy(
             isLoading = false,
             isError = false,
-            movies = viewAction.movies
+            movies = viewAction.movies,
+            error = null
         )
         is Action.TopRatedLoadingFailure -> state.copy(
             isLoading = false,
             isError = true,
-            movies = listOf()
+            movies = listOf(),
+            error = viewAction.error
         )
         Action.StartRefreshing -> state.copy(
             isLoading = true,
             isError = false,
-            movies = listOf()
+            movies = listOf(),
+            error = null
         )
     }
 }

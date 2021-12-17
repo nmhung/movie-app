@@ -6,6 +6,12 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowInsetsControllerCompat
 import com.google.android.material.snackbar.Snackbar
+import com.squareup.moshi.Moshi
+import net.fitken.movieapp.R
+import net.fitken.movieapp.base.exception.ServerException
+import retrofit2.HttpException
+import java.io.IOException
+import java.net.SocketTimeoutException
 
 /**
  * Create an abstract class for Activity so that every activity can extends and have the common functions
@@ -39,11 +45,39 @@ abstract class BaseActivity : AppCompatActivity() {
      */
     fun showError(message: String?) {
         if (message == null) return
-        val snackbar =
-            Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT)
-        snackbar.show()
+        Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT).show()
     }
 
+    fun showError(e: Throwable) {
+        Snackbar.make(findViewById(android.R.id.content), getErrorMessage(e), Snackbar.LENGTH_SHORT)
+            .show()
+    }
+
+    private fun getErrorMessage(e: Throwable): String {
+        if (e is HttpException) return getHttpExceptionMessage(e)
+        if (e is SocketTimeoutException) return getString(R.string.error_timeout)
+        if (e is IOException) return e.message ?: getString(R.string.error_unknown)
+        return getString(R.string.error_unknown)
+    }
+
+    private fun getHttpExceptionMessage(httpException: HttpException): String {
+        try {
+            val moshi = Moshi.Builder().build()
+            val jsonAdapter = moshi.adapter(ServerException::class.java)
+
+            val serverException =
+                jsonAdapter.fromJson(httpException.response()?.errorBody()?.string() ?: "")
+                    ?: return String.format(
+                        getString(R.string.error_http),
+                        "${httpException.code()}"
+                    )
+
+            return serverException.message
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return String.format(getString(R.string.error_http), "${httpException.code()}")
+        }
+    }
 
     /**
      * Hide keyboard programmatically by code

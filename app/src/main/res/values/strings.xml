@@ -9,4 +9,8 @@
     <string name="advertisement">Advertisement</string>
     <string name="overview">Overview</string>
     <string name="search_a_cinema">Search a cinema</string>
+    <string name="error_timeout">Server busy. Please try again later.</string>
+    <string name="error_unknown">Something went wrong. Please try again later.</string>
+    <string name="error_http">%s - Server Error</string>
+    <string name="location_permission_denied">Location permission denied</string>
 </resources>

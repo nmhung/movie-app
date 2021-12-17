@@ -37,4 +37,8 @@ open class BaseFragment(@LayoutRes contentLayoutId: Int) : Fragment(contentLayou
     fun showError(message: String?) {
         (requireActivity() as BaseActivity).showError(message)
     }
+
+    fun showError(e: Throwable) {
+        (requireActivity() as BaseActivity).showError(e)
+    }
 }

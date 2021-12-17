@@ -42,7 +42,7 @@ internal class MovieDetailsViewModel @Inject constructor(
                     }
 
                     is GetMovieDetailsUseCase.Result.Error -> {
-                        Action.MovieDetailsLoadingFailure
+                        Action.MovieDetailsLoadingFailure(result.e)
                     }
                 }
                 sendAction(action)
@@ -53,30 +53,34 @@ internal class MovieDetailsViewModel @Inject constructor(
     internal data class ViewState(
         val isLoading: Boolean = true,
         val isError: Boolean = false,
-        val movie: Movie? = null
+        val movie: Movie? = null,
+        val error: Throwable? = null
     ) : BaseViewState
 
     internal sealed class Action : BaseAction {
         object StartRefreshing : Action()
         class MovieDetailsLoadingSuccess(val movie: Movie) : Action()
-        object MovieDetailsLoadingFailure : Action()
+        class MovieDetailsLoadingFailure(val error: Throwable?) : Action()
     }
 
     override fun onReduceState(viewAction: Action): ViewState = when (viewAction) {
         is Action.MovieDetailsLoadingSuccess -> state.copy(
             isLoading = false,
             isError = false,
-            movie = viewAction.movie
+            movie = viewAction.movie,
+            error = null
         )
         is Action.MovieDetailsLoadingFailure -> state.copy(
             isLoading = false,
             isError = true,
-            movie = null
+            movie = null,
+            error = viewAction.error
         )
         Action.StartRefreshing -> state.copy(
             isLoading = true,
             isError = false,
-            movie = null
+            movie = null,
+            error = null
         )
     }
 }

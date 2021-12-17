@@ -2,7 +2,6 @@ package net.fitken.domain.usecase
 
 import net.fitken.domain.model.Movie
 import net.fitken.domain.repository.MovieRepository
-import java.io.IOException
 
 class GetTopRatedUseCase(private val movieRepository: MovieRepository) {
 
@@ -14,7 +13,7 @@ class GetTopRatedUseCase(private val movieRepository: MovieRepository) {
     suspend fun execute(page: Int): Result {
         return try {
             Result.Success(movieRepository.getTopRated(page))
-        } catch (e: IOException) {
+        } catch (e: Exception) {
             Result.Error(e)
         }
     }

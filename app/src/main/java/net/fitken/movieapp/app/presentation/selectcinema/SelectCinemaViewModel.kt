@@ -28,25 +28,27 @@ internal class SelectCinemaViewModel @Inject constructor(
     }
 
     fun loadAddress(query: String, currentLocation: LatLng?) {
-        var list: List<Address> = ArrayList()
-        try {
-            sendAction(Action.StartRefreshing)
-            list = _geocoder.getFromLocationName(query, 1)
-        } catch (e: IOException) {
-            e.printStackTrace()
-            sendAction(Action.LoadingFailure)
-        }
-        if (list.isNotEmpty()) {
-            val address = list[0]
-            sendAction(Action.LoadingSuccess(address))
+        viewModelScope.launch {
+            var list: List<Address> = ArrayList()
+            try {
+                sendAction(Action.StartRefreshing)
+                list = _geocoder.getFromLocationName(query, 1)
+            } catch (e: IOException) {
+                e.printStackTrace()
+                sendAction(Action.LoadingFailure(e))
+            }
+            if (list.isNotEmpty()) {
+                val address = list[0]
+                sendAction(Action.LoadingSuccess(address))
 
-            currentLocation?.let { curr ->
-                getDirection(
-                    curr.latitude,
-                    curr.longitude,
-                    address.latitude,
-                    address.longitude
-                )
+                currentLocation?.let { curr ->
+                    getDirection(
+                        curr.latitude,
+                        curr.longitude,
+                        address.latitude,
+                        address.longitude
+                    )
+                }
             }
         }
     }
@@ -75,7 +77,7 @@ internal class SelectCinemaViewModel @Inject constructor(
                         Action.StepDirectionLoadingSuccess(stepsDirection)
                     }
                     is GetDirectionUseCase.Result.Error -> {
-                        Action.LoadingFailure
+                        Action.LoadingFailure(result.e)
                     }
                 }
                 sendAction(action)
@@ -87,14 +89,15 @@ internal class SelectCinemaViewModel @Inject constructor(
         val isLoading: Boolean = true,
         val isError: Boolean = false,
         val address: Address? = null,
-        val stepDirection: ArrayList<Step>? = null
+        val stepDirection: ArrayList<Step>? = null,
+        val error: Throwable? = null
     ) : BaseViewState
 
     internal sealed class Action : BaseAction {
         object StartRefreshing : Action()
         class LoadingSuccess(val address: Address) : Action()
         class StepDirectionLoadingSuccess(val stepDirection: ArrayList<Step>) : Action()
-        object LoadingFailure : Action()
+        class LoadingFailure(val error: Throwable?) : Action()
     }
 
     override fun onReduceState(viewAction: Action): ViewState = when (viewAction) {
@@ -102,25 +105,29 @@ internal class SelectCinemaViewModel @Inject constructor(
             isLoading = false,
             isError = false,
             address = viewAction.address,
-            stepDirection = null
+            stepDirection = null,
+            error = null
         )
         is Action.StepDirectionLoadingSuccess -> state.copy(
             isLoading = false,
             isError = false,
             address = null,
-            stepDirection = viewAction.stepDirection
+            stepDirection = viewAction.stepDirection,
+            error = null
         )
         is Action.LoadingFailure -> state.copy(
             isLoading = false,
             isError = true,
             address = null,
-            stepDirection = null
+            stepDirection = null,
+            error = viewAction.error
         )
         Action.StartRefreshing -> state.copy(
             isLoading = true,
             isError = false,
             address = null,
-            stepDirection = null
+            stepDirection = null,
+            error = null
         )
     }
 }
