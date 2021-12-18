@@ -8,6 +8,7 @@ plugins {
     id(GradlePluginId.SAFE_ARGS)
     id(GradlePluginId.HILT)
     id(GradlePluginId.MAPS)
+    id(GradlePluginId.ANDROID_JUNIT_5)
 }
 
 android {
@@ -58,6 +59,11 @@ android {
             buildConfigField("String", "API_BASE_URL", "\"https://api.themoviedb.org/3/\"")
             buildConfigField("String", "API_TOKEN", "\"4479d7f3c064d397119eb3286deba0e1\"")
         }
+    }
+
+    // Removes the need to mock need to mock classes that may be irrelevant from test perspective
+    testOptions {
+        unitTests.isReturnDefaultValues = TestOptions.IS_RETURN_DEFAULT_VALUES
     }
 }
 
@@ -129,9 +135,17 @@ dependencies {
     implementation(Libs.MAPS_LOCATION)
 
 
+    testImplementation(project(ModuleDependency.LIBRARY_TEST_UTILS))
     testImplementation(Libs.JUNIT)
     androidTestImplementation(Libs.EXT_JUNIT)
     androidTestImplementation(Libs.ESPRESSO_CORE)
+    testImplementation(Libs.MOCKK)
+    testImplementation(Libs.ARCH)
+    testImplementation(Libs.COROUTINES_CORE)
+    testImplementation(Libs.COROUTINES_TEST)
+    testImplementation(Libs.KLUENT)
+    testImplementation(Libs.JUPITER_API)
+    testRuntimeOnly(Libs.JUPITER_ENGINE)
 }
 
 /*
