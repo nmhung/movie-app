@@ -8,4 +8,5 @@ object ModuleDependency {
     const val APP = ":app"
     const val DATA = ":data"
     const val DOMAIN = ":domain"
+    const val LIBRARY_TEST_UTILS = ":library_test_utils"
 }

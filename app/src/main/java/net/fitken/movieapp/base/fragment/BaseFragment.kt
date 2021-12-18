@@ -41,4 +41,8 @@ open class BaseFragment(@LayoutRes contentLayoutId: Int) : Fragment(contentLayou
     fun showError(e: Throwable) {
         (requireActivity() as BaseActivity).showError(e)
     }
+
+    fun hideKeyboard() {
+        (requireActivity() as BaseActivity).hideKeyboard()
+    }
 }

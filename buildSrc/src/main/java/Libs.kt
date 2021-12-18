@@ -25,6 +25,10 @@ object LibsVersions {
     const val JUNIT = "4.+"
     const val EXT_JUNIT = "1.1.3"
     const val ESPRESSO_CORE = "3.4.0"
+    const val MOCKK = "1.12.1"
+    const val ARCH = "2.1.0"
+    const val KLUENT = "1.68"
+    const val JUPITER = "5.8.2"
 }
 
 
@@ -76,10 +80,20 @@ object Libs {
     const val MAPS_UTILS_KTX = "com.google.maps.android:maps-utils-ktx:${LibsVersions.MAPS_KTX}"
     const val MAPS_LOCATION =
         "com.google.android.gms:play-services-location:${LibsVersions.MAPS_LOCATION}"
+    const val COROUTINES_CORE =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:${LibsVersions.COROUTINES}"
 
 
     // Test
     const val JUNIT = "junit:junit:${LibsVersions.JUNIT}"
     const val EXT_JUNIT = "androidx.test.ext:junit:${LibsVersions.EXT_JUNIT}"
     const val ESPRESSO_CORE = "androidx.test.espresso:espresso-core:${LibsVersions.ESPRESSO_CORE}"
+
+    const val MOCKK = "io.mockk:mockk:${LibsVersions.MOCKK}"
+    const val ARCH = "androidx.arch.core:core-testing:${LibsVersions.ARCH}"
+    const val COROUTINES_TEST =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-test:${LibsVersions.COROUTINES}"
+    const val KLUENT = "org.amshove.kluent:kluent-android:${LibsVersions.KLUENT}"
+    const val JUPITER_API = "org.junit.jupiter:junit-jupiter-api:${LibsVersions.JUPITER}"
+    const val JUPITER_ENGINE = "org.junit.jupiter:junit-jupiter-engine:${LibsVersions.JUPITER}"
 }

@@ -7,6 +7,7 @@ object GradlePluginId {
     const val KOTLIN_ANDROID = "org.jetbrains.kotlin.android"
     const val KOTLIN_KAPT = "org.jetbrains.kotlin.kapt"
     const val SAFE_ARGS = "androidx.navigation.safeargs.kotlin"
+    const val ANDROID_JUNIT_5 = "de.mannodermaus.android-junit5"
     const val DETEKT = "io.gitlab.arturbosch.detekt"
     const val KTLINT_GRADLE = "org.jlleitschuh.gradle.ktlint"
     const val GOOGLE_SERVICES = "com.google.gms.google-services"

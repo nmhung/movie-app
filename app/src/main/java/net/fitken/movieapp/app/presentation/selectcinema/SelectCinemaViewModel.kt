@@ -74,7 +74,11 @@ internal class SelectCinemaViewModel @Inject constructor(
                             }
                         }
 
-                        Action.StepDirectionLoadingSuccess(stepsDirection)
+                        if (stepsDirection.isEmpty()) {
+                            Action.LoadingFailure(IOException("No routes found"))
+                        } else {
+                            Action.StepDirectionLoadingSuccess(stepsDirection)
+                        }
                     }
                     is GetDirectionUseCase.Result.Error -> {
                         Action.LoadingFailure(result.e)

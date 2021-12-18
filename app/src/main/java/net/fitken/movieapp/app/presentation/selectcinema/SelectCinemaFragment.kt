@@ -62,7 +62,6 @@ class SelectCinemaFragment : BaseFragment(R.layout.fragment_select_cinema) {
 
     private val stateObserver = Observer<SelectCinemaViewModel.ViewState> {
         binding.isLoading = it.isLoading
-        if (it.error != null) showError(it.error)
         if (it.address != null) {
             map.clear()
             val cinema = LatLng(it.address.latitude, it.address.longitude)
@@ -80,6 +79,11 @@ class SelectCinemaFragment : BaseFragment(R.layout.fragment_select_cinema) {
                     add(startLatLng, endLatLng).width(15F).color(Color.BLUE)
                 }
             }
+        }
+
+        if (it.error != null) {
+            hideKeyboard()
+            showError(it.error)
         }
     }
 

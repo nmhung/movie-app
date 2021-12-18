@@ -1,7 +1,7 @@
 plugins {
     id(GradlePluginId.ANDROID_LIBRARY)
     id(GradlePluginId.KOTLIN_ANDROID) // or kotlin("android") or id 'kotlin-android'
-    id(GradlePluginId.KOTLIN_KAPT) // or kotlin("kapt")
+    id(GradlePluginId.ANDROID_JUNIT_5)
 }
 
 android {
@@ -33,19 +33,24 @@ android {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 
-    flavorDimensions("server")
-    productFlavors {
-        create("dev") {
-        }
-        create("prod") {
-        }
+    testOptions {
+        unitTests.isReturnDefaultValues = TestOptions.IS_RETURN_DEFAULT_VALUES
+    }
+
+    packagingOptions {
+        exclude("META-INF/AL2.0")
+        exclude("META-INF/licenses/**")
+        exclude("**/attach_hotspot_windows.dll")
+        exclude("META-INF/LGPL2.1")
     }
 }
 
-kapt {
-    correctErrorTypes = true
-}
-
 dependencies {
-    testImplementation(Libs.JUNIT)
+    implementation(Libs.MOCKK)
+    implementation(Libs.ARCH)
+    implementation(Libs.COROUTINES_CORE)
+    implementation(Libs.COROUTINES_TEST)
+    implementation(Libs.KLUENT)
+    implementation(Libs.JUPITER_API)
+    runtimeOnly(Libs.JUPITER_ENGINE)
 }
