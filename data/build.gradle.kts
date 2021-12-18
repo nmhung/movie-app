@@ -2,7 +2,6 @@ plugins {
     id(GradlePluginId.ANDROID_LIBRARY)
     id(GradlePluginId.KOTLIN_ANDROID) // or kotlin("android") or id 'kotlin-android'
     id(GradlePluginId.KOTLIN_KAPT) // or kotlin("kapt")
-    id(GradlePluginId.HILT)
     id(GradlePluginId.ANDROID_JUNIT_5)
 }
 
@@ -49,20 +48,12 @@ android {
     }
 }
 
-hilt {
-    enableExperimentalClasspathAggregation = true
-}
-
 kapt {
     correctErrorTypes = true
 }
 
 dependencies {
     implementation(project(ModuleDependency.DOMAIN))
-
-    implementation(Libs.HILT)
-    kapt(Libs.HILT_ANDROID_COMPILER)
-    kapt(Libs.HILT_COMPILER)
 
     // Moshi
     implementation(Libs.RETROFIT_CONVERTER_MOSHI)
