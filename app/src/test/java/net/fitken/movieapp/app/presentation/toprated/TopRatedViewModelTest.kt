@@ -1,4 +1,4 @@
-package net.fitken.movieapp.app.presentation.moviedetails
+package net.fitken.movieapp.app.presentation.toprated
 
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -7,16 +7,16 @@ import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import net.fitken.domain.model.Genre
 import net.fitken.domain.model.Movie
-import net.fitken.domain.usecase.GetMovieDetailsUseCase
+import net.fitken.domain.usecase.GetTopRatedUseCase
 import net.fitken.library.testutils.CoroutinesTestExtension
 import net.fitken.library.testutils.InstantTaskExecutorExtension
+import org.amshove.kluent.shouldBe
 import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.RegisterExtension
 
-class MovieDetailsViewModelTest {
-
+class TopRatedViewModelTest {
     @ExperimentalCoroutinesApi
     @JvmField
     @RegisterExtension
@@ -27,35 +27,35 @@ class MovieDetailsViewModelTest {
     var instantTaskExecutorExtension = InstantTaskExecutorExtension()
 
     @MockK
-    private lateinit var mockGetMovieDetailsUseCase: GetMovieDetailsUseCase
+    private lateinit var mockGetTopRatedUseCase: GetTopRatedUseCase
 
-    private lateinit var viewModel: MovieDetailsViewModel
+    private lateinit var viewModel: TopRatedViewModel
 
     @BeforeEach
     fun setUp() {
         MockKAnnotations.init(this)
 
-        viewModel = MovieDetailsViewModel(mockGetMovieDetailsUseCase)
+        viewModel = TopRatedViewModel(mockGetTopRatedUseCase)
     }
 
     @Test
-    fun `execute getMovieDetailsUseCase`() {
+    fun `execute getTopRatedUseCase`() {
         // when
         viewModel.loadData()
 
         // then
-        coVerify { mockGetMovieDetailsUseCase.execute(0) }
+        coVerify { mockGetTopRatedUseCase.execute(1) }
     }
 
     @Test
-    fun `verify state when GetMovieDetailsUseCase returns a movie`() {
+    fun `verify state when GetTopRatedUseCase returns non-empty list`() {
         // given
         val genre = Genre(1, "Fiction")
         val movie = Movie(
             "poster.png",
             "overview here",
             "2021/12/12",
-            0,
+            3,
             "Test movie",
             "en",
             "Test Movie",
@@ -67,19 +67,40 @@ class MovieDetailsViewModelTest {
             arrayListOf(genre),
             130
         )
+        val movies = listOf(movie)
         coEvery {
-            mockGetMovieDetailsUseCase.execute(0)
-        } returns GetMovieDetailsUseCase.Result.Success(movie)
+            mockGetTopRatedUseCase.execute(1)
+        } returns GetTopRatedUseCase.Result.Success(movies)
 
         // when
         viewModel.loadData()
 
         // then
-        viewModel.stateLiveData.value shouldBeEqualTo MovieDetailsViewModel.ViewState(
+        viewModel.stateLiveData.value shouldBeEqualTo TopRatedViewModel.ViewState(
             isLoading = false,
             isError = false,
-            movie = movie,
+            movies = movies,
             error = null
+        )
+    }
+
+    @Test
+    fun `verify state when GetTopRatedUseCase returns exception`() {
+        // given
+        val error = Exception()
+        coEvery {
+            mockGetTopRatedUseCase.execute(1)
+        } returns GetTopRatedUseCase.Result.Error(error)
+
+        // when
+        viewModel.loadData()
+
+        // then
+        viewModel.stateLiveData.value shouldBeEqualTo TopRatedViewModel.ViewState(
+            isLoading = false,
+            isError = true,
+            movies = listOf(),
+            error = error
         )
     }
 }

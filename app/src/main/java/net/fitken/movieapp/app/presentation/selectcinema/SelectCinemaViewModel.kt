@@ -17,22 +17,22 @@ import javax.inject.Inject
 
 @HiltViewModel
 internal class SelectCinemaViewModel @Inject constructor(
-    private val getDirectionUseCase: GetDirectionUseCase
+    private val getDirectionUseCase: GetDirectionUseCase,
+    private val geocoder: Geocoder
 ) :
     BaseViewModel<SelectCinemaViewModel.ViewState, SelectCinemaViewModel.Action>(ViewState()) {
 
-    private lateinit var _geocoder: Geocoder
-
-    fun init(geocoder: Geocoder) {
-        _geocoder = geocoder
-    }
+    private var originLat: Double = 0.0
+    private var originLng: Double = 0.0
+    private var destinationLat: Double = 0.0
+    private var destinationLng: Double = 0.0
 
     fun loadAddress(query: String, currentLocation: LatLng?) {
         viewModelScope.launch {
             var list: List<Address> = ArrayList()
             try {
                 sendAction(Action.StartRefreshing)
-                list = _geocoder.getFromLocationName(query, 1)
+                list = geocoder.getFromLocationName(query, 1)
             } catch (e: IOException) {
                 e.printStackTrace()
                 sendAction(Action.LoadingFailure(e))
@@ -42,23 +42,21 @@ internal class SelectCinemaViewModel @Inject constructor(
                 sendAction(Action.LoadingSuccess(address))
 
                 currentLocation?.let { curr ->
-                    getDirection(
-                        curr.latitude,
-                        curr.longitude,
-                        address.latitude,
-                        address.longitude
-                    )
+                    originLat = curr.latitude
+                    originLng = curr.longitude
+                    destinationLat = address.latitude
+                    destinationLng = address.longitude
+                    loadData()
                 }
             }
         }
     }
 
-    private fun getDirection(
-        originLat: Double,
-        originLng: Double,
-        destinationLat: Double,
-        destinationLng: Double
-    ) {
+    override fun onLoadData() {
+        getDirection()
+    }
+
+    private fun getDirection() {
         viewModelScope.launch {
             getDirectionUseCase.execute(
                 "$originLat,$originLng",

@@ -4,7 +4,6 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.graphics.Color
-import android.location.Geocoder
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
@@ -95,8 +94,6 @@ class SelectCinemaFragment : BaseFragment(R.layout.fragment_select_cinema) {
         (requireActivity() as BaseActivity).setSupportActionBar(binding.toolbar)
 
         observe(viewModel.stateLiveData, stateObserver)
-
-        viewModel.init(Geocoder(requireContext()))
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
