@@ -16,7 +16,7 @@ Based on mvvm architecture (view-databinding-viewmodel-model) with the repositor
 
 - #### Data module
 
-    [Data module](/data) composed of handle database queries and networking requests.
+    [Data module](/data) composed of handle networking requests.
 
 
 
