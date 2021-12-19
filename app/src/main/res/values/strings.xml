@@ -14,4 +14,5 @@
     <string name="error_http">%s - Server Error</string>
     <string name="location_permission_denied">Location permission denied</string>
     <string name="error_no_routes">No routes found</string>
+    <string name="error_location_service_disabled">Location service is not enabled. Please try to enable it first.</string>
 </resources>

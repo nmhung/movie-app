@@ -25,6 +25,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
 import net.fitken.movieapp.R
+import net.fitken.movieapp.app.utils.LocationServiceUtil
 import net.fitken.movieapp.app.utils.textChanges
 import net.fitken.movieapp.base.activity.BaseActivity
 import net.fitken.movieapp.base.delegate.viewBinding
@@ -41,7 +42,7 @@ class SelectCinemaFragment : BaseFragment(R.layout.fragment_select_cinema) {
 
     private val binding: FragmentSelectCinemaBinding by viewBinding()
     private val viewModel: SelectCinemaViewModel by viewModels()
-    private lateinit var map: GoogleMap
+    private var map: GoogleMap? = null
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var currentLocation: LatLng? = null
 
@@ -62,16 +63,16 @@ class SelectCinemaFragment : BaseFragment(R.layout.fragment_select_cinema) {
     private val stateObserver = Observer<SelectCinemaViewModel.ViewState> {
         binding.isLoading = it.isLoading
         if (it.address != null) {
-            map.clear()
+            map?.clear()
             val cinema = LatLng(it.address.latitude, it.address.longitude)
-            map.addMarker {
+            map?.addMarker {
                 position(cinema)
                 title(it.address.getAddressLine(0))
             }
-            map.moveCamera(CameraUpdateFactory.newLatLng(cinema))
+            map?.moveCamera(CameraUpdateFactory.newLatLng(cinema))
         }
         if (it.stepDirection != null) {
-            map.addPolyline {
+            map?.addPolyline {
                 it.stepDirection.forEach { step ->
                     val startLatLng = LatLng(step.startLocation.lat, step.startLocation.lng)
                     val endLatLng = LatLng(step.endLocation.lat, step.endLocation.lng)
@@ -100,11 +101,15 @@ class SelectCinemaFragment : BaseFragment(R.layout.fragment_select_cinema) {
         lifecycleScope.launchWhenCreated {
             val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
             map = mapFragment.awaitMap()
-            map.moveCamera(CameraUpdateFactory.zoomTo(15F))
+            map?.moveCamera(CameraUpdateFactory.zoomTo(15F))
+            map?.setOnMyLocationButtonClickListener {
+                getCurrentLocation()
+                true
+            }
 
             checkPermissions()
 
-            map.setOnInfoWindowClickListener {
+            map?.setOnInfoWindowClickListener {
                 val action =
                     SelectCinemaFragmentDirections.actionSelectCinemaFragmentToDashboardFragment()
                 navManager.navigate(action)
@@ -145,12 +150,21 @@ class SelectCinemaFragment : BaseFragment(R.layout.fragment_select_cinema) {
 
     @SuppressLint("MissingPermission")
     private fun moveToCurrentLocation() {
-        map.isMyLocationEnabled = true
-        fusedLocationClient.lastLocation.addOnSuccessListener {
-            currentLocation = LatLng(it.latitude, it.longitude)
-            map.moveCamera(
-                CameraUpdateFactory.newLatLng(currentLocation!!)
-            )
+        map?.isMyLocationEnabled = true
+        getCurrentLocation()
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun getCurrentLocation() {
+        if (LocationServiceUtil.isLocationEnabled(requireContext())) {
+            fusedLocationClient.lastLocation.addOnSuccessListener {
+                currentLocation = LatLng(it.latitude, it.longitude)
+                map?.moveCamera(
+                    CameraUpdateFactory.newLatLng(currentLocation!!)
+                )
+            }
+        } else {
+            showError(getString(R.string.error_location_service_disabled))
         }
     }
 }
