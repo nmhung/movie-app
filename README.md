@@ -29,9 +29,9 @@ Based on mvvm architecture (view-databinding-viewmodel-model) with the repositor
         - [Lifecycle](https://developer.android.com/topic/libraries/architecture/lifecycle) - perform an action when lifecycle state changes
         - [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) - store and manage UI-related data in a lifecycle conscious way
 
-    - [Glide](https://bumptech.github.io/glide/) - image loading library
-    - [Proxyman](https://proxyman.io/) - network proxy debugging
-    - [Hilt](https://dagger.dev/hilt) - constructing dependency injection
+  - [Glide](https://bumptech.github.io/glide/) - image loading library
+- [Proxyman](https://proxyman.io/) - network proxy debugging
+- [Hilt](https://dagger.dev/hilt) - constructing dependency injection
 - Modern Architecture
     -  [Android Architecture components](https://developer.android.com/topic/architecture) (ViewModel, LiveData, Navigation)
     - [Android KTX](https://developer.android.com/kotlin/ktx) - Jetpack Kotlin extensions
