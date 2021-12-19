@@ -1,6 +1,8 @@
 # movie-app
 The Movie App following best practices: Kotlin, Coroutines, JetPack, Clean Architecture, Tests, MVVM, DI, Static Analysis...
 
+## Supported
+Android 6.0 and up, phone and tablet.
 
 ## Module structure
 
