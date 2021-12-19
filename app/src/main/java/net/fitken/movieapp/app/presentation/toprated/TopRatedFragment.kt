@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import net.fitken.domain.model.Movie
 import net.fitken.movieapp.R
@@ -37,7 +38,7 @@ class TopRatedFragment : BaseFragment(R.layout.fragment_top_rated) {
 
         if (it.error != null) showError(it.error)
 
-        binding.isRefreshing = it.isLoading
+        binding.isRefreshing = it.isRefreshing
 
         binding.rvItems.requestModelBuild()
     }
@@ -76,5 +77,15 @@ class TopRatedFragment : BaseFragment(R.layout.fragment_top_rated) {
                 }
             }
         }
+
+
+        binding.rvItems.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (!binding.rvItems.canScrollVertically(1)) {
+                    viewModel.loadMore()
+                }
+            }
+        })
     }
 }

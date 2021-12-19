@@ -77,7 +77,7 @@ class NowPlayingViewModelTest {
 
         // then
         viewModel.stateLiveData.value shouldBeEqualTo NowPlayingViewModel.ViewState(
-            isLoading = false,
+            isRefreshing = false,
             isError = false,
             movies = movies,
             error = null
@@ -97,7 +97,7 @@ class NowPlayingViewModelTest {
 
         // then
         viewModel.stateLiveData.value shouldBeEqualTo NowPlayingViewModel.ViewState(
-            isLoading = false,
+            isRefreshing = false,
             isError = true,
             movies = listOf(),
             error = error

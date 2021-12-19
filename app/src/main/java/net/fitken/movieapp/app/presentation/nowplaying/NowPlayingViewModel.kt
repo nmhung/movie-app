@@ -17,22 +17,33 @@ internal class NowPlayingViewModel @Inject constructor(
     BaseViewModel<NowPlayingViewModel.ViewState, NowPlayingViewModel.Action>(ViewState()) {
 
     private var page: Int = 1
+    private val _movies = ArrayList<Movie>()
 
     override fun onLoadData() {
         getNowPlaying()
     }
 
     fun onRefresh() {
+        sendAction(Action.StartRefreshing)
+        page = 1
         getNowPlaying()
+    }
+
+    fun loadMore() {
+        page++
+        loadData()
     }
 
     private fun getNowPlaying() {
         viewModelScope.launch {
-            sendAction(Action.StartRefreshing)
             getNowPlayingUseCase.execute(page).also { result ->
                 val action = when (result) {
                     is GetNowPlayingUseCase.Result.Success -> {
-                        Action.NowPlayingLoadingSuccess(result.data)
+                        if (state.isRefreshing) {
+                            _movies.clear()
+                        }
+                        _movies.addAll(result.data)
+                        Action.NowPlayingLoadingSuccess(_movies)
                     }
 
                     is GetNowPlayingUseCase.Result.Error -> {
@@ -45,7 +56,7 @@ internal class NowPlayingViewModel @Inject constructor(
     }
 
     internal data class ViewState(
-        val isLoading: Boolean = true,
+        val isRefreshing: Boolean = true,
         val isError: Boolean = false,
         val movies: List<Movie> = listOf(),
         val error: Throwable? = null
@@ -59,19 +70,19 @@ internal class NowPlayingViewModel @Inject constructor(
 
     override fun onReduceState(viewAction: Action): ViewState = when (viewAction) {
         is Action.NowPlayingLoadingSuccess -> state.copy(
-            isLoading = false,
+            isRefreshing = false,
             isError = false,
             movies = viewAction.movies,
             error = null
         )
         is Action.NowPlayingLoadingFailure -> state.copy(
-            isLoading = false,
+            isRefreshing = false,
             isError = true,
             movies = listOf(),
             error = viewAction.error
         )
         Action.StartRefreshing -> state.copy(
-            isLoading = true,
+            isRefreshing = true,
             isError = false,
             movies = listOf(),
             error = null

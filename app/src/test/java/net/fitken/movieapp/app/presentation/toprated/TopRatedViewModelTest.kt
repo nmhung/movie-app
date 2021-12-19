@@ -10,7 +10,6 @@ import net.fitken.domain.model.Movie
 import net.fitken.domain.usecase.GetTopRatedUseCase
 import net.fitken.library.testutils.CoroutinesTestExtension
 import net.fitken.library.testutils.InstantTaskExecutorExtension
-import org.amshove.kluent.shouldBe
 import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -77,7 +76,7 @@ class TopRatedViewModelTest {
 
         // then
         viewModel.stateLiveData.value shouldBeEqualTo TopRatedViewModel.ViewState(
-            isLoading = false,
+            isRefreshing = false,
             isError = false,
             movies = movies,
             error = null
@@ -97,7 +96,7 @@ class TopRatedViewModelTest {
 
         // then
         viewModel.stateLiveData.value shouldBeEqualTo TopRatedViewModel.ViewState(
-            isLoading = false,
+            isRefreshing = false,
             isError = true,
             movies = listOf(),
             error = error
