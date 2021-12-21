@@ -5,14 +5,13 @@ import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import net.fitken.domain.model.Direction
-import net.fitken.domain.model.Step
+import net.fitken.domain.model.*
 import net.fitken.domain.usecase.GetDirectionUseCase
 import net.fitken.library.testutils.CoroutinesTestExtension
 import net.fitken.library.testutils.InstantTaskExecutorExtension
+import net.fitken.movieapp.BuildConfig
 import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.RegisterExtension
 
@@ -35,9 +34,9 @@ class SelectCinemaViewModelTest {
 
     private lateinit var viewModel: SelectCinemaViewModel
 
-    private val origin = "1.23,102.4"
-    private val destination = "3.34,102.9"
-    private val mapApiKey = "Az34AcvflgAdfazger-ffdESg"
+    private val origin = "0.0,0.0"
+    private val destination = "0.0,0.0"
+    private val mapApiKey = BuildConfig.MAPS_API_KEY
 
     @BeforeEach
     fun setUp() {
@@ -46,13 +45,14 @@ class SelectCinemaViewModelTest {
         viewModel = SelectCinemaViewModel(mockGetDirectionUseCase, mockGeocoder)
     }
 
-    @Disabled
     @Test
     fun `verify state when search an address returns a direction`() {
         // given
         val stepsDirection = ArrayList<Step>()
         stepsDirection.add(Step())
-        val direction = Direction()
+        val leg = Leg("", Location(), "", Location(), stepsDirection)
+        val route = Route(listOf(leg))
+        val direction = Direction(listOf(route))
         coEvery {
             mockGetDirectionUseCase.execute(origin, destination, mapApiKey)
         } returns GetDirectionUseCase.Result.Success(direction)
@@ -62,11 +62,11 @@ class SelectCinemaViewModelTest {
 
         // then
         viewModel.stateLiveData.value shouldBeEqualTo SelectCinemaViewModel.ViewState(
-            isLoading = false,
-            isError = false,
-            address = null,
-            stepDirection = stepsDirection,
-            error = null
+                isLoading = false,
+                isError = false,
+                address = null,
+                stepDirection = stepsDirection,
+                error = null
         )
     }
 }
