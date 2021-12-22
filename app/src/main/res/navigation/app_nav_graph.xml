@@ -37,7 +37,7 @@
         android:label="MovieDetailsFragment" >
         <argument
             android:name="movie"
-            app:argType="net.fitken.domain.model.Movie"/>
+            app:argType="net.fitken.core.domain.model.Movie"/>
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
