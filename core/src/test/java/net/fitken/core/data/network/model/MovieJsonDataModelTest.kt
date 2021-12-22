@@ -3,7 +3,7 @@ package net.fitken.core.data.network.model
 import net.fitken.core.data.common.Constants
 import net.fitken.core.domain.model.Movie
 import org.amshove.kluent.shouldBeEqualTo
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 class MovieJsonDataModelTest {
 

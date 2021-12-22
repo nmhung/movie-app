@@ -2,7 +2,7 @@ package net.fitken.core.data.network.model
 
 import net.fitken.core.domain.model.Direction
 import org.amshove.kluent.shouldBeEqualTo
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 class DirectionJsonDataModelTest {
 
