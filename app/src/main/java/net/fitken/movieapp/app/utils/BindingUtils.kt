@@ -8,7 +8,7 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
-import net.fitken.domain.model.Genre
+import net.fitken.core.domain.model.Genre
 import net.fitken.movieapp.R
 
 @BindingAdapter("movieImgUrl")

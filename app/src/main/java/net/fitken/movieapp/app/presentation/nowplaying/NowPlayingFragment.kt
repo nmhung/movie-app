@@ -6,7 +6,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
-import net.fitken.domain.model.Movie
+import net.fitken.core.domain.model.Movie
 import net.fitken.movieapp.R
 import net.fitken.movieapp.app.listener.MovieListener
 import net.fitken.movieapp.app.presentation.dashboard.DashboardFragmentDirections

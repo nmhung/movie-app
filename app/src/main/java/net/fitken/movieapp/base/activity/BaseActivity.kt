@@ -8,7 +8,7 @@ import androidx.core.view.WindowInsetsControllerCompat
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.moshi.Moshi
 import net.fitken.movieapp.R
-import net.fitken.movieapp.base.exception.ServerException
+import net.fitken.core.data.network.exception.ServerException
 import retrofit2.HttpException
 import java.io.IOException
 import java.net.SocketTimeoutException
