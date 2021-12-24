@@ -33,6 +33,7 @@ import net.fitken.movieapp.base.extension.observe
 import net.fitken.movieapp.base.fragment.BaseFragment
 import net.fitken.movieapp.base.navigation.NavManager
 import net.fitken.movieapp.databinding.FragmentSelectCinemaBinding
+import java.io.IOException
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
@@ -72,11 +73,16 @@ class SelectCinemaFragment : BaseFragment(R.layout.fragment_select_cinema) {
             map?.moveCamera(CameraUpdateFactory.newLatLng(cinema))
         }
         if (it.stepDirection != null) {
-            map?.addPolyline {
-                it.stepDirection.forEach { step ->
-                    val startLatLng = LatLng(step.startLocation.lat, step.startLocation.lng)
-                    val endLatLng = LatLng(step.endLocation.lat, step.endLocation.lng)
-                    add(startLatLng, endLatLng).width(15F).color(Color.BLUE)
+            if (it.stepDirection.isEmpty()) {
+                hideKeyboard()
+                showError(IOException(getString(R.string.error_no_routes)))
+            } else {
+                map?.addPolyline {
+                    it.stepDirection.forEach { step ->
+                        val startLatLng = LatLng(step.startLocation.lat, step.startLocation.lng)
+                        val endLatLng = LatLng(step.endLocation.lat, step.endLocation.lng)
+                        add(startLatLng, endLatLng).width(15F).color(Color.BLUE)
+                    }
                 }
             }
         }
