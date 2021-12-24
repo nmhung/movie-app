@@ -4,6 +4,10 @@ The Movie App following best practices: Kotlin, Coroutines, JetPack, Clean Archi
 ## Supported
 Android 6.0 and up, phone and tablet.
 
+## Video Walkthrough
+
+<img src="/art/walkthrough.gif?raw=true" width="320px">
+
 ## Module structure
 
 - #### App module
