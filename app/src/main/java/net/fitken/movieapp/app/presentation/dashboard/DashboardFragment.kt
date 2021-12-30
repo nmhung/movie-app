@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.navigation.findNavController
 import net.fitken.movieapp.R
+import net.fitken.movieapp.app.enums.MovieListTypeEnum
+import net.fitken.movieapp.app.presentation.movielist.MovieListFragment
 import net.fitken.movieapp.base.delegate.viewBinding
 import net.fitken.movieapp.base.fragment.BaseFragment
 import net.fitken.movieapp.base.navigation.NavManager
@@ -28,11 +30,19 @@ class DashboardFragment : BaseFragment(R.layout.fragment_dashboard) {
             when (item.itemId) {
                 R.id.now_playing -> {
                     binding.navHostFragmentDashboard.findNavController()
-                        .navigate(R.id.nowPlayingFragment)
+                        .navigate(
+                            R.id.nowPlayingFragment, MovieListFragment.createBundle(
+                                MovieListTypeEnum.NOW_PLAYING
+                            )
+                        )
                 }
                 R.id.top_rated -> {
                     binding.navHostFragmentDashboard.findNavController()
-                        .navigate(R.id.topRatedFragment)
+                        .navigate(
+                            R.id.topRatedFragment, MovieListFragment.createBundle(
+                                MovieListTypeEnum.TOP_RATED
+                            )
+                        )
                 }
             }
             true

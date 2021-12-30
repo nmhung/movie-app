@@ -131,6 +131,8 @@ dependencies {
     implementation(Libs.MAPS_UTILS_KTX)
     implementation(Libs.MAPS_LOCATION)
 
+    debugImplementation(Libs.LEAKCANARY)
+
 
     testImplementation(project(ModuleDependency.LIBRARY_TEST_UTILS))
     testImplementation(Libs.JUNIT)
