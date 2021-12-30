@@ -20,6 +20,7 @@ object LibsVersions {
     const val MAPS = "18.0.1"
     const val MAPS_KTX = "3.2.1"
     const val MAPS_LOCATION = "19.0.0"
+    const val LEAKCANARY = "2.7"
 
     // Test
     const val JUNIT = "4.+"
@@ -82,6 +83,7 @@ object Libs {
         "com.google.android.gms:play-services-location:${LibsVersions.MAPS_LOCATION}"
     const val COROUTINES_CORE =
         "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:${LibsVersions.COROUTINES}"
+    const val LEAKCANARY = "com.squareup.leakcanary:leakcanary-android:${LibsVersions.LEAKCANARY}"
 
 
     // Test
