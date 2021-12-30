@@ -1,32 +1,43 @@
-package net.fitken.movieapp.app.presentation.toprated
+package net.fitken.movieapp.app.presentation.movielist
 
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import net.fitken.core.domain.model.Movie
+import net.fitken.core.domain.usecase.GetNowPlayingUseCase
 import net.fitken.core.domain.usecase.GetTopRatedUseCase
+import net.fitken.movieapp.app.enums.MovieListTypeEnum
 import net.fitken.movieapp.base.viewmodel.BaseAction
 import net.fitken.movieapp.base.viewmodel.BaseViewModel
 import net.fitken.movieapp.base.viewmodel.BaseViewState
 import javax.inject.Inject
 
 @HiltViewModel
-internal class TopRatedViewModel @Inject constructor(
+internal class MovieListViewModel @Inject constructor(
+    private val getNowPlayingUseCase: GetNowPlayingUseCase,
     private val getTopRatedUseCase: GetTopRatedUseCase
 ) :
-    BaseViewModel<TopRatedViewModel.ViewState, TopRatedViewModel.Action>(ViewState()) {
+    BaseViewModel<MovieListViewModel.ViewState, MovieListViewModel.Action>(ViewState()) {
 
     private var page: Int = 1
     private val _movies = ArrayList<Movie>()
+    private var _movieType = MovieListTypeEnum.NOW_PLAYING
+
+    fun init(movieListTypeEnum: MovieListTypeEnum) {
+        _movieType = movieListTypeEnum
+    }
 
     override fun onLoadData() {
-        getTopRated()
+        when (_movieType) {
+            MovieListTypeEnum.NOW_PLAYING -> getNowPlaying()
+            MovieListTypeEnum.TOP_RATED -> getTopRated()
+        }
     }
 
     fun onRefresh() {
         sendAction(Action.StartRefreshing)
         page = 1
-        getTopRated()
+        loadData()
     }
 
     fun loadMore() {
@@ -43,11 +54,32 @@ internal class TopRatedViewModel @Inject constructor(
                             _movies.clear()
                         }
                         _movies.addAll(result.data)
-                        Action.TopRatedLoadingSuccess(_movies)
+                        Action.LoadingSuccess(_movies)
                     }
 
                     is GetTopRatedUseCase.Result.Error -> {
-                        Action.TopRatedLoadingFailure(result.e)
+                        Action.LoadingFailure(result.e)
+                    }
+                }
+                sendAction(action)
+            }
+        }
+    }
+
+    private fun getNowPlaying() {
+        viewModelScope.launch {
+            getNowPlayingUseCase.execute(page).also { result ->
+                val action = when (result) {
+                    is GetNowPlayingUseCase.Result.Success -> {
+                        if (state.isRefreshing) {
+                            _movies.clear()
+                        }
+                        _movies.addAll(result.data)
+                        Action.LoadingSuccess(_movies)
+                    }
+
+                    is GetNowPlayingUseCase.Result.Error -> {
+                        Action.LoadingFailure(result.e)
                     }
                 }
                 sendAction(action)
@@ -64,18 +96,18 @@ internal class TopRatedViewModel @Inject constructor(
 
     internal sealed class Action : BaseAction {
         object StartRefreshing : Action()
-        class TopRatedLoadingSuccess(val movies: List<Movie>) : Action()
-        class TopRatedLoadingFailure(val error: Throwable?) : Action()
+        class LoadingSuccess(val movies: List<Movie>) : Action()
+        class LoadingFailure(val error: Throwable?) : Action()
     }
 
     override fun onReduceState(viewAction: Action): ViewState = when (viewAction) {
-        is Action.TopRatedLoadingSuccess -> state.copy(
+        is Action.LoadingSuccess -> state.copy(
             isRefreshing = false,
             isError = false,
             movies = viewAction.movies,
             error = null
         )
-        is Action.TopRatedLoadingFailure -> state.copy(
+        is Action.LoadingFailure -> state.copy(
             isRefreshing = false,
             isError = true,
             movies = listOf(),

@@ -11,7 +11,7 @@
 
         <variable
             name="viewModel"
-            type="net.fitken.movieapp.app.presentation.toprated.TopRatedViewModel" />
+            type="net.fitken.movieapp.app.presentation.movielist.MovieListViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -35,7 +35,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                app:title="@string/top_rated" />
+                app:title="@string/now_playing" />
 
 
             <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -59,6 +59,7 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/epoxy_layout_item_movie" />
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

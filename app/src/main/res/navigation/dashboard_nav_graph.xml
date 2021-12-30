@@ -5,10 +5,18 @@
     app:startDestination="@id/nowPlayingFragment">
     <fragment
         android:id="@+id/nowPlayingFragment"
-        android:name="net.fitken.movieapp.app.presentation.nowplaying.NowPlayingFragment"
-        android:label="NowPlayingFragment" />
+        android:name="net.fitken.movieapp.app.presentation.movielist.MovieListFragment"
+        android:label="NowPlayingFragment">
+        <argument
+            android:name="movieType"
+            app:argType="net.fitken.movieapp.app.enums.MovieListTypeEnum" />
+    </fragment>
     <fragment
         android:id="@+id/topRatedFragment"
-        android:name="net.fitken.movieapp.app.presentation.toprated.TopRatedFragment"
-        android:label="TopRatedFragment" />
+        android:name="net.fitken.movieapp.app.presentation.movielist.MovieListFragment"
+        android:label="TopRatedFragment">
+        <argument
+            android:name="movieType"
+            app:argType="net.fitken.movieapp.app.enums.MovieListTypeEnum" />
+    </fragment>
 </navigation>
