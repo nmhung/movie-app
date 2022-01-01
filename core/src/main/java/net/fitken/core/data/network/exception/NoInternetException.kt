@@ -1,4 +1,4 @@
-package net.fitken.movieapp.app.data.network.exception
+package net.fitken.core.data.network.exception
 
 import java.io.IOException
 

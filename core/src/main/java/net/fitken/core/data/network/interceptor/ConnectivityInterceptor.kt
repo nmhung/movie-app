@@ -2,7 +2,7 @@ package net.fitken.core.data.network.interceptor
 
 import android.content.Context
 import net.fitken.core.util.NetworkUtil
-import net.fitken.movieapp.app.data.network.exception.NoInternetException
+import net.fitken.core.data.network.exception.NoInternetException
 import okhttp3.Interceptor
 import okhttp3.Response
 
