@@ -6,8 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import net.fitken.core.domain.model.Step
-import net.fitken.core.domain.usecase.GetDirectionUseCase
+import net.fitken.domain.model.Step
+import net.fitken.domain.usecase.GetDirectionUseCase
 import net.fitken.movieapp.BuildConfig
 import net.fitken.movieapp.base.viewmodel.BaseAction
 import net.fitken.movieapp.base.viewmodel.BaseViewModel

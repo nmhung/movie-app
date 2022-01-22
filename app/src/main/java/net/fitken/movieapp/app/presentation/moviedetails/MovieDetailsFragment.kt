@@ -6,7 +6,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
-import net.fitken.core.domain.model.Movie
+import net.fitken.domain.model.Movie
 import net.fitken.movieapp.R
 import net.fitken.movieapp.base.activity.BaseActivity
 import net.fitken.movieapp.base.delegate.viewBinding

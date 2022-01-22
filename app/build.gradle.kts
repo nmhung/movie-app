@@ -52,10 +52,12 @@ android {
     productFlavors {
         create("dev") {
             applicationIdSuffix = ".dev"
-
+            buildConfigField("String", "API_BASE_URL", "\"https://api.themoviedb.org/3/\"")
+            buildConfigField("String", "API_TOKEN", "\"4479d7f3c064d397119eb3286deba0e1\"")
         }
         create("prod") {
-
+            buildConfigField("String", "API_BASE_URL", "\"https://api.themoviedb.org/3/\"")
+            buildConfigField("String", "API_TOKEN", "\"4479d7f3c064d397119eb3286deba0e1\"")
         }
     }
 
@@ -74,7 +76,8 @@ kapt {
 }
 
 dependencies {
-    implementation(project(ModuleDependency.CORE))
+    implementation(project(ModuleDependency.DOMAIN))
+    implementation(project(ModuleDependency.DATA))
 
     api(Libs.CORE_KTX)
     api(Libs.APPCOMPAT)
@@ -88,14 +91,7 @@ dependencies {
     kapt(Libs.HILT_ANDROID_COMPILER)
     kapt(Libs.HILT_COMPILER)
 
-    // Retrofit
-    api(Libs.RETROFIT)
-    api(Libs.OKHTTP3_LOGGING_INTERCEPTOR)
-
     // Moshi
-    api(Libs.RETROFIT_CONVERTER_MOSHI)
-    api(Libs.MOSHI)
-    api(Libs.MOSHI_KOTLIN)
     kapt(Libs.MOSHI_KOTLIN_CODEGEN)
 
     // ViewModel

@@ -5,8 +5,8 @@ import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import net.fitken.core.domain.model.*
-import net.fitken.core.domain.usecase.GetDirectionUseCase
+import net.fitken.domain.model.*
+import net.fitken.domain.usecase.GetDirectionUseCase
 import net.fitken.library.testutils.CoroutinesTestExtension
 import net.fitken.library.testutils.InstantTaskExecutorExtension
 import net.fitken.movieapp.BuildConfig

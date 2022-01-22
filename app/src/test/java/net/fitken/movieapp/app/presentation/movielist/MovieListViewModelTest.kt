@@ -5,10 +5,10 @@ import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import net.fitken.core.domain.model.Genre
-import net.fitken.core.domain.model.Movie
-import net.fitken.core.domain.usecase.GetNowPlayingUseCase
-import net.fitken.core.domain.usecase.GetTopRatedUseCase
+import net.fitken.domain.model.Genre
+import net.fitken.domain.model.Movie
+import net.fitken.domain.usecase.GetNowPlayingUseCase
+import net.fitken.domain.usecase.GetTopRatedUseCase
 import net.fitken.library.testutils.CoroutinesTestExtension
 import net.fitken.library.testutils.InstantTaskExecutorExtension
 import net.fitken.movieapp.app.enums.MovieListTypeEnum

@@ -6,4 +6,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "Movie App"
-include(":app", ":core", ":library_test_utils")
+include(":app", ":data", ":domain", ":library_test_utils")

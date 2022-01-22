@@ -3,9 +3,9 @@ package net.fitken.movieapp.app.presentation.movielist
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import net.fitken.core.domain.model.Movie
-import net.fitken.core.domain.usecase.GetNowPlayingUseCase
-import net.fitken.core.domain.usecase.GetTopRatedUseCase
+import net.fitken.domain.model.Movie
+import net.fitken.domain.usecase.GetNowPlayingUseCase
+import net.fitken.domain.usecase.GetTopRatedUseCase
 import net.fitken.movieapp.app.enums.MovieListTypeEnum
 import net.fitken.movieapp.base.viewmodel.BaseAction
 import net.fitken.movieapp.base.viewmodel.BaseViewModel
