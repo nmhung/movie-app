@@ -11,7 +11,7 @@
 
         <variable
             name="listener"
-            type="net.fitken.movieapp.app.listener.MovieListener" />
+            type="net.fitken.movieapp.app.presentation.movielist.MovieListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

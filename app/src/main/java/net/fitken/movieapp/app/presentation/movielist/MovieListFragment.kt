@@ -9,7 +9,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import net.fitken.domain.model.Movie
 import net.fitken.movieapp.R
 import net.fitken.movieapp.app.enums.MovieListTypeEnum
-import net.fitken.movieapp.app.listener.MovieListener
 import net.fitken.movieapp.app.presentation.dashboard.DashboardFragmentDirections
 import net.fitken.movieapp.base.activity.BaseActivity
 import net.fitken.movieapp.base.delegate.viewBinding
