@@ -3,6 +3,7 @@ package net.fitken.data.network.model
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import net.fitken.domain.model.Leg
 
 @JsonClass(generateAdapter = true)
 data class LegJson(
@@ -17,3 +18,12 @@ data class LegJson(
     @Json(name = "steps")
     var steps: List<StepJson> = listOf()
 )
+
+fun LegJson.toDomainModel(): Leg =
+    Leg(
+        endAddress,
+        endLocation.toDomainModel(),
+        startAddress,
+        startLocation.toDomainModel(),
+        steps.map { it.toDomainModel() }
+    )
