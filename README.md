@@ -14,11 +14,14 @@ Android 6.0 and up, phone and tablet.
     [App module](/app) is the implementation of user interfaces on the application.
 Based on mvvm architecture (view-databinding-viewmodel-model) with the repository pattern.
 
-- #### Core module
 
-    [Core module](/core) composed of use cases of the app and handle networking requests.
+- #### Domain module
 
+  [Domain module](/domain) composed of use cases of the app.
 
+- #### Data module
+
+  [Data module](/data) composed of handle networking requests.
 
 
 
